@@ -1,33 +1,37 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public GameObject cube;
-    private GameEntity player;
+    public GameObject playerAsset;
+    public GameObject enemyAsset;
 
-    private GameEntity target;
-    
+    private GameEntity player;
+    private GameEntity enemy;
+
     private void Start()
     {
-        target = Contexts.sharedInstance.game.CreateEntity();
-        
         player = Contexts.sharedInstance.game.CreateEntity();
-        var go = Instantiate(cube);
+        var go = Instantiate(playerAsset);
         player.AddView(go);
+        player.AddTransform(new Vector3(5, 0, 0), Vector3.one, Vector3.one);
         player.AddActionPoint(new ActionPoint());
-        player.AddAttackActionAbility(new AttackBaseActionAbility());
+        player.AddAttackActionAbility(new AttackActionAbility());
+        player.AddAttackAbility(new AttackAbility());
+
+        enemy = Contexts.sharedInstance.game.CreateEntity();
+        go = Instantiate(enemyAsset);
+        enemy.AddView(go);
+        enemy.AddActionPoint(new ActionPoint());
+        enemy.AddTransform(new Vector3(-5, 0, 0), Vector3.one, Vector3.one);
+        enemy.AddBlockActionAbility(new BlockActionAbility());
     }
 
-    void Update()
+    public void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (player.attackActionAbility.logic.TryMakeAction(player, enemy, out var actionExecution) 
+            && actionExecution is AttackActionExecution attackActionExecution)
         {
-            if (player.attackActionAbility.logic.TryMakeAction(player,out var result) && result is AttackActionExecution attackActionExecution)
-            {
-                attackActionExecution.Target = target;
-                attackActionExecution.StartAttack();
-            }
+            attackActionExecution.StartAttack();
         }
     }
 }

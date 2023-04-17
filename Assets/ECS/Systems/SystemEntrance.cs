@@ -13,6 +13,9 @@ public class SystemEntrance : Feature
         Add(new PositionSystem(gameContext));
         
         Add(new PropertySystem(gameContext));
+
+        Add(new AbilityInitSystem(gameContext));
+        Add(new AbilityExecuteSystem(gameContext));
     }
 
     public sealed override Systems Add(ISystem system)

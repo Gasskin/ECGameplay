@@ -11,20 +11,16 @@ public partial class GameEntity {
     public AbilityExecutionComponent abilityExecution { get { return (AbilityExecutionComponent)GetComponent(GameComponentsLookup.AbilityExecution); } }
     public bool hasAbilityExecution { get { return HasComponent(GameComponentsLookup.AbilityExecution); } }
 
-    public void AddAbilityExecution(GameEntity newCreator, GameEntity newTarget, BaseAbilityExecution newLogic) {
+    public void AddAbilityExecution(BaseAbilityExecution newLogic) {
         var index = GameComponentsLookup.AbilityExecution;
         var component = (AbilityExecutionComponent)CreateComponent(index, typeof(AbilityExecutionComponent));
-        component.creator = newCreator;
-        component.target = newTarget;
         component.logic = newLogic;
         AddComponent(index, component);
     }
 
-    public void ReplaceAbilityExecution(GameEntity newCreator, GameEntity newTarget, BaseAbilityExecution newLogic) {
+    public void ReplaceAbilityExecution(BaseAbilityExecution newLogic) {
         var index = GameComponentsLookup.AbilityExecution;
         var component = (AbilityExecutionComponent)CreateComponent(index, typeof(AbilityExecutionComponent));
-        component.creator = newCreator;
-        component.target = newTarget;
         component.logic = newLogic;
         ReplaceComponent(index, component);
     }

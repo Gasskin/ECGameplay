@@ -1,6 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public class AttackAbility : BaseAbility
+{
+    public override void OnInit()
+    {
+        
+    }
+
+    public override BaseAbilityExecution CreateExecution(BaseActionExecution baseActionExecution)
+    {
+        var execution = new AttackAbilityExecution();
+        execution.actionExecution = baseActionExecution;
+        var entity = Contexts.sharedInstance.game.CreateEntity();
+        entity.AddAbilityExecution(execution);
+        return execution;
+    }
+}
 
 public class AttackAbilityExecution : BaseAbilityExecution
 {
@@ -34,7 +49,7 @@ public class AttackAbilityExecution : BaseAbilityExecution
         Debug.LogError("进行一次普工！");
     }
 
-    public override void EndExecute()
+    public override void OnEndExecute()
     {
         Debug.LogError("结束攻击");
     }

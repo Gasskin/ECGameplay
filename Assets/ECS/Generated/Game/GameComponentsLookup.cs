@@ -13,14 +13,13 @@ public static class GameComponentsLookup {
     public const int AttackAbility = 2;
     public const int AttackActionAbility = 3;
     public const int BaseProperty = 4;
-    public const int CombatLogic = 5;
-    public const int CombatLogicRemovedListener = 6;
-    public const int Identity = 7;
-    public const int Property = 8;
-    public const int Transform = 9;
-    public const int View = 10;
+    public const int BlockActionAbility = 5;
+    public const int Identity = 6;
+    public const int Property = 7;
+    public const int Transform = 8;
+    public const int View = 9;
 
-    public const int TotalComponents = 11;
+    public const int TotalComponents = 10;
 
     public static readonly string[] componentNames = {
         "AbilityExecution",
@@ -28,8 +27,7 @@ public static class GameComponentsLookup {
         "AttackAbility",
         "AttackActionAbility",
         "BaseProperty",
-        "CombatLogic",
-        "CombatLogicRemovedListener",
+        "BlockActionAbility",
         "Identity",
         "Property",
         "Transform",
@@ -42,8 +40,7 @@ public static class GameComponentsLookup {
         typeof(AttackAbilityComponent),
         typeof(AttackActionAbilityComponent),
         typeof(BasePropertyComponent),
-        typeof(CombatLogicComponent),
-        typeof(CombatLogicRemovedListenerComponent),
+        typeof(BlockActionAbilityComponent),
         typeof(IdentityComponent),
         typeof(PropertyComponent),
         typeof(TransformComponent),

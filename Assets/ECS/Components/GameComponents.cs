@@ -87,12 +87,6 @@ public class TransformComponent : IComponent
 #endregion
 
 #region Combat
-[Game, Event(EventTarget.Self, EventType.Removed)]
-public class CombatLogicComponent : IComponent
-{
-    public CombatLogic logic;
-}
-
 [Game]
 public class ActionPointComponent : IComponent
 {
@@ -102,7 +96,7 @@ public class ActionPointComponent : IComponent
 [Game]
 public class AttackActionAbilityComponent : IComponent
 {
-    public AttackBaseActionAbility logic;
+    public AttackActionAbility logic;
 }
 
 [Game]
@@ -114,9 +108,13 @@ public class AttackAbilityComponent : IComponent
 [Game]
 public class AbilityExecutionComponent : IComponent
 {
-    public GameEntity creator;
-    public GameEntity target;
     public BaseAbilityExecution logic;
+}
+
+[Game]
+public class BlockActionAbilityComponent : IComponent
+{
+    public BlockActionAbility logic;
 }
 #endregion
 

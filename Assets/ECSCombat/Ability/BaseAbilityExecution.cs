@@ -26,7 +26,7 @@ public abstract class BaseAbilityExecution
                 break;
             case AbilityExecutionProcess.Execute:
                 process = AbilityExecutionProcess.End;
-                EndExecute();
+                OnEndExecute();
                 break;
             case AbilityExecutionProcess.End:
                 break;
@@ -47,5 +47,5 @@ public abstract class BaseAbilityExecution
     public abstract void OnExecute();
 
     /// 结束
-    public abstract void EndExecute();
+    public abstract void OnEndExecute();
 }

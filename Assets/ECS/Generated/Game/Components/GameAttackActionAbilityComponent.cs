@@ -11,14 +11,14 @@ public partial class GameEntity {
     public AttackActionAbilityComponent attackActionAbility { get { return (AttackActionAbilityComponent)GetComponent(GameComponentsLookup.AttackActionAbility); } }
     public bool hasAttackActionAbility { get { return HasComponent(GameComponentsLookup.AttackActionAbility); } }
 
-    public void AddAttackActionAbility(AttackBaseActionAbility newLogic) {
+    public void AddAttackActionAbility(AttackActionAbility newLogic) {
         var index = GameComponentsLookup.AttackActionAbility;
         var component = (AttackActionAbilityComponent)CreateComponent(index, typeof(AttackActionAbilityComponent));
         component.logic = newLogic;
         AddComponent(index, component);
     }
 
-    public void ReplaceAttackActionAbility(AttackBaseActionAbility newLogic) {
+    public void ReplaceAttackActionAbility(AttackActionAbility newLogic) {
         var index = GameComponentsLookup.AttackActionAbility;
         var component = (AttackActionAbilityComponent)CreateComponent(index, typeof(AttackActionAbilityComponent));
         component.logic = newLogic;
