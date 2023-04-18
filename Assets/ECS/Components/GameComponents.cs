@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Entitas;
-using Entitas.CodeGeneration.Attributes;
 using UnityEngine;
-using EventType = Entitas.CodeGeneration.Attributes.EventType;
 
 #region ID
 [Game]
@@ -94,21 +90,17 @@ public class ActionPointComponent : IComponent
 }
 
 [Game]
-public class AttackActionAbilityComponent : IComponent
-{
-    public AttackActionAbility logic;
-}
-
-[Game]
-public class AttackAbilityComponent : IComponent
-{
-    public AttackAbility logic;
-}
-
-[Game]
 public class AbilityExecutionComponent : IComponent
 {
     public BaseAbilityExecution logic;
+}
+#endregion
+
+#region ActionAbility
+[Game]
+public class AttackActionAbilityComponent : IComponent
+{
+    public AttackActionAbility logic;
 }
 
 [Game]
@@ -118,8 +110,14 @@ public class BlockActionAbilityComponent : IComponent
 }
 #endregion
 
+#region Ability
 
-
+[Game]
+public class AttackAbilityComponent : IComponent
+{
+    public AttackAbility logic;
+}
+#endregion
 
 
 

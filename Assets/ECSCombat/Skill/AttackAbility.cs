@@ -22,7 +22,7 @@ public class AttackAbility : BaseAbility
     public void ShowAttackEffect(GameEntity target)
     {
         var attackEffect = Object.Instantiate(asset);
-        attackEffect.transform.position = Vector3.up;
+        attackEffect.transform.position = Vector3.zero;
         attackEffect.GetComponent<LineRenderer>().SetPosition(0, owner.view.gameObject.transform.position);
         attackEffect.GetComponent<LineRenderer>().SetPosition(1, target.view.gameObject.transform.position);
         Object.Destroy(attackEffect, 0.05f);

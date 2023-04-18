@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class AttackActionAbility : BaseActionAbility
 {
-    private const float CD = 1f;
+    private const float CD = 0.2f;
     private float preTime = -1;
 
     public override void OnInit()
