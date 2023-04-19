@@ -1,19 +1,28 @@
 using System;
 using ECGameplay;
-using ECGameplay.BasicComponent;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    private MasterEntity MasterEntity => MasterEntity.Instance;
     
     public class TestEntity : Entity
     {
-        
+        public override void Update()
+        {
+            Debug.Log(GetComponent<AttributeComponent>()?.HealthPoint.Value);
+        }
     }
     
     private void Start()
     {
-        var master = MasterEntity.Instance;
-        var entity = master.AddChild<TestEntity>();
+        var entity = MasterEntity.AddChild<TestEntity>();
+        entity.AddComponent<UpdateComponent>();
+        entity.AddComponent<AttributeComponent>();
+    }
+
+    private void Update()
+    {
+        MasterEntity.Update();
     }
 }

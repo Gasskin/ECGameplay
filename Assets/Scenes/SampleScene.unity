@@ -693,6 +693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2086636655}
   - component: {fileID: 2086636654}
+  - component: {fileID: 2086636656}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -712,8 +713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73aa3adddbc80f84185154c2b14ca24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAsset: {fileID: 8315493567105005091, guid: 5f75db1a97727d242b13a4e4e926fc72, type: 3}
-  enemyAsset: {fileID: 8974129652838014582, guid: 33cfd077eb885c240823e36eda818043, type: 3}
 --- !u!4 &2086636655
 Transform:
   m_ObjectHideFlags: 0
@@ -730,3 +729,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2086636656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086636653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa18295c680547babdbae5296412a4f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

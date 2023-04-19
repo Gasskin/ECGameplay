@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ECGameplay.BasicComponent;
 using UnityEngine;
 
 namespace ECGameplay
@@ -64,18 +63,6 @@ namespace ECGameplay
         {
         }
 
-        public virtual void Start()
-        {
-        }
-
-        public virtual void Start(object initData)
-        {
-        }
-
-        public virtual void OnSetParent(Entity pre, Entity now)
-        {
-        }
-
         public virtual void Update()
         {
         }
@@ -120,7 +107,6 @@ namespace ECGameplay
             Components.Add(typeof(T), component);
             Master.AllComponents.Add(component);
             component.Awake();
-            component.Setup();
             component.Enable = component.DefaultEnable;
 
 #if UNITY_EDITOR
@@ -137,7 +123,6 @@ namespace ECGameplay
             Components.Add(typeof(T), component);
             Master.AllComponents.Add(component);
             component.Awake(initData);
-            component.Setup(initData);
             component.Enable = component.DefaultEnable;
 #if UNITY_EDITOR
             GetComponent<GameObjectComponent>()?.OnAddComponent(component);
@@ -172,61 +157,6 @@ namespace ECGameplay
             return Components.TryGetValue(typeof(T), out var component);
         }
 
-        public Component GetComponent(Type componentType)
-        {
-            if (this.Components.TryGetValue(componentType, out var component))
-            {
-                return component;
-            }
-
-            return null;
-        }
-
-        public T Get<T>() where T : Component
-        {
-            if (Components.TryGetValue(typeof(T), out var component))
-            {
-                return component as T;
-            }
-
-            return null;
-        }
-
-        public bool TryGet<T>(out T component) where T : Component
-        {
-            if (Components.TryGetValue(typeof(T), out var c))
-            {
-                component = c as T;
-                return true;
-            }
-
-            component = null;
-            return false;
-        }
-
-        public bool TryGet<T, T1>(out T component, out T1 component1) where T : Component where T1 : Component
-        {
-            component = null;
-            component1 = null;
-            if (Components.TryGetValue(typeof(T), out var c)) component = c as T;
-            if (Components.TryGetValue(typeof(T1), out var c1)) component1 = c1 as T1;
-            if (component != null && component1 != null) return true;
-            return false;
-        }
-
-        public bool TryGet<T, T1, T2>(out T component, out T1 component1, out T2 component2)
-            where T : Component where T1 : Component where T2 : Component
-        {
-            component = null;
-            component1 = null;
-            component2 = null;
-            if (Components.TryGetValue(typeof(T), out var c)) component = c as T;
-            if (Components.TryGetValue(typeof(T1), out var c1)) component1 = c1 as T1;
-            if (Components.TryGetValue(typeof(T2), out var c2)) component2 = c2 as T2;
-            if (component != null && component1 != null && component2 != null) return true;
-            return false;
-        }
-
         public T GetParent<T>() where T : Entity
         {
             return parent as T;
@@ -237,82 +167,30 @@ namespace ECGameplay
             return this as T;
         }
 
-        public bool As<T>(out T entity) where T : Entity
-        {
-            entity = this as T;
-            return entity != null;
-        }
-        
-        private void SetParent(Entity parent)
-        {
-            var preParent = Parent;
-            preParent?.RemoveChild(this);
-            this.parent = parent;
-            OnSetParent(preParent, parent);
-            
-#if UNITY_EDITOR
-            parent.GetComponent<GameObjectComponent>()?.OnAddChild(this);
-#endif
-        }
-
-        public void SetChild(Entity child)
-        {
-            Children.Add(child);
-            Id2Children.Add(child.Id, child);
-            if (!Type2Children.ContainsKey(child.GetType())) Type2Children.Add(child.GetType(), new List<Entity>());
-            Type2Children[child.GetType()].Add(child);
-            child.SetParent(this);
-        }
 
         public void RemoveChild(Entity child)
         {
             Children.Remove(child);
-            if (Type2Children.ContainsKey(child.GetType())) Type2Children[child.GetType()].Remove(child);
+            Id2Children.Remove(child.Id);
+            if (Type2Children.ContainsKey(child.GetType())) 
+                Type2Children[child.GetType()].Remove(child);
         }
-
-        public Entity AddChild(Type entityType)
-        {
-            var entity = NewEntity(entityType);
-            SetupEntity(entity, this);
-            return entity;
-        }
-
-        public Entity AddChild(Type entityType, object initData)
-        {
-            var entity = NewEntity(entityType);
-            SetupEntity(entity, this, initData);
-            return entity;
-        }
+        
 
         public T AddChild<T>() where T : Entity
         {
-            return AddChild(typeof(T)) as T;
-        }
-
-        public T AddIdChild<T>(long id) where T : Entity
-        {
-            var entityType = typeof(T);
-            var entity = NewEntity(entityType, id);
+            var entity = NewEntity(typeof(T));
             SetupEntity(entity, this);
             return entity as T;
         }
-
+        
         public T AddChild<T>(object initData) where T : Entity
         {
-            return AddChild(typeof(T), initData) as T;
-        }
-
-        public Entity GetIdChild(long id)
-        {
-            Id2Children.TryGetValue(id, out var entity);
-            return entity;
-        }
-
-        public T GetIdChild<T>(long id) where T : Entity
-        {
-            Id2Children.TryGetValue(id, out var entity);
+            var entity = NewEntity(typeof(T));
+            SetupEntity(entity, this, initData);
             return entity as T;
         }
+
 
         public T GetChild<T>(int index = 0) where T : Entity
         {

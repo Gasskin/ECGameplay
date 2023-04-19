@@ -41,16 +41,6 @@ namespace ECGameplay
 
         }
 
-        public virtual void Setup()
-        {
-
-        }
-
-        public virtual void Setup(object initData)
-        {
-
-        }
-
         public virtual void OnEnable()
         {
 
@@ -71,16 +61,12 @@ namespace ECGameplay
             
         }
 
-        private void Dispose()
-        {
-            Enable = false;
-            IsDisposed = true;
-        }
 
-        public static void Destroy(Component entity)
+        public static void Destroy(Component component)
         {
-            entity.OnDestroy();
-            entity.Dispose();
+            component.Enable = false;
+            component.OnDestroy();
+            component.IsDisposed = true;
         }
     }
 }

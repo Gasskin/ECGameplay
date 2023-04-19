@@ -23,12 +23,22 @@ namespace ECGameplay
 
         public static T Create<T>() where T : Entity
         {
-            return Create(typeof(T)) as T;
+            var entity = NewEntity(typeof(T));
+            SetupEntity(entity, Master);
+            return entity as T;
         }
 
         public static T Create<T>(object initData) where T : Entity
         {
-            return Create(typeof(T), initData) as T;
+            var entity = NewEntity(typeof(T));
+            SetupEntity(entity, Master, initData);
+            return entity as T;
+        }
+        
+        public static void Destroy(Entity entity)
+        {
+            entity.OnDestroy();
+            entity.Dispose();
         }
 
         private static void SetupEntity(Entity entity, Entity parent)
@@ -37,7 +47,6 @@ namespace ECGameplay
             {
                 entity.Awake();
             }
-            entity.Start();
         }
 
         private static void SetupEntity(Entity entity, Entity parent, object initData)
@@ -46,27 +55,26 @@ namespace ECGameplay
             {
                 entity.Awake(initData);
             }
-            entity.Start(initData);
         }
-
-        public static Entity Create(Type entityType)
+        
+        private void SetChild(Entity child)
         {
-            var entity = NewEntity(entityType);
-            SetupEntity(entity, Master);
-            return entity;
+            Children.Add(child);
+            Id2Children.Add(child.Id, child);
+            if (!Type2Children.ContainsKey(child.GetType())) 
+                Type2Children.Add(child.GetType(), new List<Entity>());
+            Type2Children[child.GetType()].Add(child);
+            child.SetParent(this);
         }
-
-        public static Entity Create(Type entityType, object initData)
+        
+        private void SetParent(Entity parent)
         {
-            var entity = NewEntity(entityType);
-            SetupEntity(entity, Master, initData);
-            return entity;
-        }
-
-        public static void Destroy(Entity entity)
-        {
-            entity.OnDestroy();
-            entity.Dispose();
+            var preParent = Parent;
+            preParent?.RemoveChild(this);
+            this.parent = parent;
+#if UNITY_EDITOR
+            parent.GetComponent<GameObjectComponent>()?.OnAddChild(this);
+#endif
         }
     }
 }

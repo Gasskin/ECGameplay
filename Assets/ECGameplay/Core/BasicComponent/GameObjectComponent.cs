@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
-namespace ECGameplay.BasicComponent
+namespace ECGameplay
 {
     public class GameObjectComponent : Component
     {
         public GameObject GameObject { get;private set; }
+        public float test;
 
         public override void Awake()
         {
             GameObject = new GameObject(Entity.GetType().Name);
-            // var view = GameObject.AddComponent<ComponentView>();
-            // view.Type = GameObject.name;
-            // view.Component = this;
+            GameObject.AddComponent<ComponentView>();
         }
         
         public override void OnDestroy()
@@ -27,21 +26,14 @@ namespace ECGameplay.BasicComponent
 
         public void OnAddComponent(Component component)
         {
-            var view = GameObject.AddComponent<ComponentView>();
-            view.Type = component.GetType().Name;
-            view.Component = component;
+            var view = GameObject.GetComponent<ComponentView>();
+            view.componts.Add(component);
         }
 
         public void OnRemoveComponent(Component component)
         {
-            var comps = GameObject.GetComponents<ComponentView>();
-            foreach (var item in comps)
-            {
-                if (item.Component == component)
-                {
-                    UnityEngine.GameObject.Destroy(item);
-                }
-            }
+            var view = GameObject.GetComponent<ComponentView>();
+            view.componts.Remove(component);
         }
 
         public void OnAddChild(Entity child)
