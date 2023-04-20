@@ -1,5 +1,6 @@
 ﻿namespace ECGameplay
 {
+    [DrawProperty]
     public class AttributeComponent : Component
     {
         // 移动速度
@@ -34,5 +35,22 @@
             CriticalProbability.SetBaseValue(0.5f);
             CauseDamage.SetBaseValue(1.5f);
         }
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            var str = "";
+            str += "MoveSpeed: " + MoveSpeed.Value + "\n";
+            str += "HealthPoint: " + HealthPoint.Value + "\n";
+            str += "HealthPointMax: " + HealthPointMax.Value + "\n";
+            str += "Attack: " + Attack.Value + "\n";
+            str += "Defense: " + Defense.Value + "\n";
+            str += "AbilityPower: " + AbilityPower.Value + "\n";
+            str += "SpellResistance: " + SpellResistance.Value + "\n";
+            str += "CriticalProbability: " + CriticalProbability.Value + "\n";
+            str += "CauseDamage: " + CauseDamage.Value;
+            return str;
+        }
+#endif
     }
 }

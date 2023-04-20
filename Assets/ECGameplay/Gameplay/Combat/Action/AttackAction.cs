@@ -2,7 +2,7 @@
 {
     public class AttackAction : Entity, IAction
     {
-        public Entity OwnerEntity { get; set; }
+        public CombatEntity OwnerEntity {get => GetParent<CombatEntity>();set{}}
         public bool Enable { get; set; }
 
         public bool TryMakeAction(out AttackActionExecution action)
@@ -27,9 +27,9 @@
         // 行为
         public Entity Action { get; set; }
         // 释放者
-        public Entity Creator { get; set; }
+        public CombatEntity Creator { get; set; }
         // 目标
-        public Entity Target { get; set; }
+        public CombatEntity Target { get; set; }
         // 能力执行体
         public AttackAbilityExecution AttackAbilityExecution { get; set; }
 

@@ -5,10 +5,8 @@
     /// </summary>
     public interface IAbility
     {
-        public Entity OwnerEntity { get; set; }
-        public Entity ParentEntity { get; }
+        public CombatEntity OwnerEntity { get; set; }
         public bool Enable { get; set; }
-
 
         /// 尝试激活能力
         public void TryActivateAbility();

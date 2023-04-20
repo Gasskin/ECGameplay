@@ -5,7 +5,7 @@
     /// </summary>
     public interface IAction
     {
-        public Entity OwnerEntity { get; set; }
+        public CombatEntity OwnerEntity { get; set; }
         public bool Enable { get; set; }
     }
 }

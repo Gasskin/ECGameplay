@@ -4,13 +4,11 @@ namespace ECGameplay
 {
     public class AttackAbility : Entity, IAbility
     {
-        public Entity OwnerEntity
+        public CombatEntity OwnerEntity
         {
-            get => GetParent<Entity>();
+            get => GetParent<CombatEntity>();
             set { }
         }
-
-        public Entity ParentEntity => GetParent<Entity>();
 
         public bool Enable { get; set; }
 
@@ -58,7 +56,7 @@ namespace ECGameplay
     public class AttackAbilityExecution : Entity, IAbilityExecution
     {
         public Entity AbilityEntity { get; set; }
-        public Entity OwnerEntity { get; set; }
+        public CombatEntity OwnerEntity { get; set; }
         public AttackActionExecution AttackActionExecution { get; set; }
 
         // 被格挡
@@ -102,8 +100,8 @@ namespace ECGameplay
         {
             damaged = true;
 
-            // AttackAction.Creator.TriggerActionPoint(ActionPointType.PreGiveAttackEffect, AttackAction);
-            // AttackAction.Target.TriggerActionPoint(ActionPointType.PreReceiveAttackEffect, AttackAction);
+            AttackActionExecution.Creator?.TriggerActionPoint(ActionPointType.PreGiveAttackEffect, AttackActionExecution);
+            AttackActionExecution.Target?.TriggerActionPoint(ActionPointType.PreReceiveAttackEffect, AttackActionExecution);
 
             if (blocked)
             {

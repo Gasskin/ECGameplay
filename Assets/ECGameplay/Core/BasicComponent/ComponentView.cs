@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -7,6 +8,13 @@ using Random = System.Random;
 
 namespace ECGameplay
 {
+    public class DrawPropertyAttribute : Attribute
+    {
+        public DrawPropertyAttribute()
+        {
+        }
+    }
+    
     public class ComponentView : MonoBehaviour
     {
         public List<Component> componts = new List<Component>();
@@ -25,9 +33,14 @@ namespace ECGameplay
                 var component = componts[i];
                 var type = component.GetType();
                 EditorGUILayout.TextField(type.Name);
+                GUI.color = Color.white;
+
+                if (type.GetCustomAttribute<DrawPropertyAttribute>() != null)
+                {
+                    EditorGUILayout.TextArea(component.ToString());
+                }
             }
 
-            GUI.color = Color.white;
             GUI.enabled = true;
         }
 

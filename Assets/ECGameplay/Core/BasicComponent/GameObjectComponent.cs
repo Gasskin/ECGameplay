@@ -5,7 +5,6 @@ namespace ECGameplay
     public class GameObjectComponent : Component
     {
         public GameObject GameObject { get;private set; }
-        public float test;
 
         public override void Awake()
         {
@@ -42,6 +41,11 @@ namespace ECGameplay
             {
                 child.GetComponent<GameObjectComponent>().GameObject.transform.SetParent(GameObject.transform);
             }
+        }
+
+        public override string ToString()
+        {
+            return GameObject.name;
         }
     }
 }

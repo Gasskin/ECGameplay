@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    private MasterEntity MasterEntity => MasterEntity.Instance;
+
+    public GameObject hero;
+    public GameObject monster;
+
+    private MasterEntity Master => MasterEntity.Instance;
+    private CombatEntity HeroEntity;
+    private CombatEntity MonsterEntity;
     
-    public class TestEntity : Entity
-    {
-        public override void Update()
-        {
-            Debug.Log(GetComponent<AttributeComponent>()?.HealthPoint.Value);
-        }
-    }
     
     private void Start()
     {
-        var entity = MasterEntity.AddChild<TestEntity>();
-        entity.AddComponent<UpdateComponent>();
-        entity.AddComponent<AttributeComponent>();
-        entity.AddChild<AttackAction>().AddChild<AttackAbility>();
+        HeroEntity = Master.AddChild<CombatEntity>();
+        HeroEntity.target = hero;
+        
+        MonsterEntity = Master.AddChild<CombatEntity>();
+        MonsterEntity.target = monster;
     }
 
     private void Update()
     {
-        MasterEntity.Update();
+        Master.Update();
+    }
+
+    public void Attack()
+    {
+        if (HeroEntity.AttackAction.TryMakeAction(out var actionExecution))
+        {
+            actionExecution.Target = MonsterEntity;
+            actionExecution.ApplyAttack();
+        }
     }
 }

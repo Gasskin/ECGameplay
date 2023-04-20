@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace ECGameplay
 {
@@ -108,5 +109,12 @@ namespace ECGameplay
             var value3 = (value2 + FinalAddCollection.TotalValue) * (100 + FinalPctAddCollection.TotalValue) / 100f;
             Value = value3;
         }
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            return Value.ToString(CultureInfo.InvariantCulture);
+        }
+#endif
     }
 }
