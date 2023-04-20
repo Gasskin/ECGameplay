@@ -19,6 +19,7 @@ public class Test : MonoBehaviour
         var entity = MasterEntity.AddChild<TestEntity>();
         entity.AddComponent<UpdateComponent>();
         entity.AddComponent<AttributeComponent>();
+        entity.AddChild<AttackAction>().AddChild<AttackAbility>();
     }
 
     private void Update()
