@@ -20,7 +20,7 @@
         // 暴击概率
         public FloatNumeric CriticalProbability { get; set; } = new (); 
         // 暴击伤害
-        public FloatNumeric CauseDamage { get; set; } = new ();
+        public FloatNumeric CriticalDamage { get; set; } = new ();
 
 
         public override void Awake()
@@ -33,7 +33,7 @@
             AbilityPower.SetBaseValue(0);
             SpellResistance.SetBaseValue(300);
             CriticalProbability.SetBaseValue(0.5f);
-            CauseDamage.SetBaseValue(1.5f);
+            CriticalDamage.SetBaseValue(1.5f);
         }
 
 #if UNITY_EDITOR
@@ -48,7 +48,7 @@
             str += "AbilityPower: " + AbilityPower.Value + "\n";
             str += "SpellResistance: " + SpellResistance.Value + "\n";
             str += "CriticalProbability: " + CriticalProbability.Value + "\n";
-            str += "CauseDamage: " + CauseDamage.Value;
+            str += "CauseDamage: " + CriticalDamage.Value;
             return str;
         }
 #endif

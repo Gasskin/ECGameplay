@@ -1,0 +1,14 @@
+[
+  {
+    "Id": 1,
+    "SkillSpellType": 0,
+    "SkillAffectTargetType": 2,
+    "SkillTargetSelectType": 0,
+    "ColdTime": 1,
+    "AttachStatus": false,
+    "AttachEffect": [
+      1,
+      2
+    ]
+  }
+]

@@ -5,7 +5,7 @@
     /// </summary>
     public interface IAbilityExecution
     {
-        public Entity AbilityEntity { get; set; }
+        public IAbility Ability { get; set; }
         public CombatEntity OwnerEntity { get; set; }
 
         /// 开始执行

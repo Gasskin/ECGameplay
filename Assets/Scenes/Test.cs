@@ -1,18 +1,19 @@
 using System;
+using cfg.Skill;
 using ECGameplay;
+using ECGamePlay;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-
     public GameObject hero;
     public GameObject monster;
 
     private MasterEntity Master => MasterEntity.Instance;
     private CombatEntity HeroEntity;
     private CombatEntity MonsterEntity;
-    
-    
+
+
     private void Start()
     {
         HeroEntity = Master.AddChild<CombatEntity>();

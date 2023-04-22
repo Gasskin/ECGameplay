@@ -15,7 +15,7 @@
 
         public override void Awake()
         {
-            OwnerEntity?.ListenActionPoint(ActionPointType.PreReceiveAttackEffect, TryBlock);
+            OwnerEntity?.ListenActionPoint(ActionPointType.BeforeReceiveAttackEffect, TryBlock);
         }
 
         

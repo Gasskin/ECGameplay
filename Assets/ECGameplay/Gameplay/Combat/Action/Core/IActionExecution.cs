@@ -3,7 +3,9 @@
     public interface IActionExecution
     {
         /// 行动能力
-        public Entity Action { get; set; }
+        public IAction Action { get; set; }
+        /// 效果赋给行动
+        public EffectAssignActionExecution EffectActionExecution { get; set; }
         /// 行动实体
         public CombatEntity Creator { get; set; }
         /// 目标对象

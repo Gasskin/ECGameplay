@@ -25,7 +25,10 @@
     public class AttackActionExecution : Entity, IActionExecution
     {
         // 行为
-        public Entity Action { get; set; }
+        public IAction Action { get; set; }
+
+        public EffectAssignActionExecution EffectActionExecution { get; set; }
+
         // 释放者
         public CombatEntity Creator { get; set; }
         // 目标

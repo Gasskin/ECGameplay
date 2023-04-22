@@ -35,9 +35,21 @@ namespace ECGameplay
                 EditorGUILayout.TextField(type.Name);
                 GUI.color = Color.white;
 
-                if (type.GetCustomAttribute<DrawPropertyAttribute>() != null)
+                // Go组件展示其Entity的属性，其他组件展示自身的属性
+                if (type == typeof(GameObjectComponent))
                 {
-                    EditorGUILayout.TextArea(component.ToString());
+                    var entityType = component.Entity.GetType();
+                    if (entityType.GetCustomAttribute<DrawPropertyAttribute>() != null) 
+                    {
+                        EditorGUILayout.TextArea(component.Entity.ToString());
+                    }
+                }
+                else
+                {
+                    if (type.GetCustomAttribute<DrawPropertyAttribute>() != null)
+                    {
+                        EditorGUILayout.TextArea(component.ToString());
+                    }
                 }
             }
 
