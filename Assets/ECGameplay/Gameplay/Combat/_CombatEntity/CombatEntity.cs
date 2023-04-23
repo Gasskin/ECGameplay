@@ -5,8 +5,6 @@ namespace ECGameplay
 {
     public class CombatEntity : Entity
     {
-        public GameObject target;
-
         // 普攻行为
         public AttackAction AttackAction { get; private set; }
         // 格挡行为
@@ -54,7 +52,7 @@ namespace ECGameplay
             var damageAction = actionExecution as DamageActionExecution;
             if (damageAction == null)
                 return;
-            Debug.LogError("ReceiveDamage : " + damageAction.Damage);
+            GetComponent<AttributeComponent>().HealthPoint.MinusBaseValue(damageAction.Damage);
         }
         
         private T AttachAbility<T>(int id) where T : Entity, IAbility

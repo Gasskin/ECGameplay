@@ -54,6 +54,18 @@ namespace ECGameplay
             Refresh();
         }
         
+        public void AddBaseValue(float value)
+        {
+            baseValue += value;
+            Refresh();
+        }
+        
+        public void MinusBaseValue(float value)
+        {
+            baseValue -= value;
+            Refresh();
+        }
+        
         public void AddAddModifier(FloatModifier modifier)
         {
             AddCollection.AddModifier(modifier);
