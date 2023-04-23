@@ -2,7 +2,7 @@
 
 namespace ECGameplay
 {
-    public class DamageEffectComponent : Component, IEffectComponent
+    public class DamageAbilityEffectComponent : Component, IAbilityEffectComponent
     {
         public SkillEffectConfig SkillEffectConfig { get; set; }
 

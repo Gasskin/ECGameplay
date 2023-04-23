@@ -25,10 +25,11 @@ public sealed partial class SkillEffectConfig :  Bright.Config.BeanBase
         { if(!_json["ValueType"].IsNumber) { throw new SerializationException(); }  ValueType = (Skill.Enum.DamageType)_json["ValueType"].AsInt; }
         { if(!_json["EffectType"].IsNumber) { throw new SerializationException(); }  EffectType = (Skill.Enum.EffectType)_json["EffectType"].AsInt; }
         { if(!_json["CanCritical"].IsBoolean) { throw new SerializationException(); }  CanCritical = _json["CanCritical"]; }
+        { if(!_json["AttachStatus"].IsNumber) { throw new SerializationException(); }  AttachStatus = _json["AttachStatus"]; }
         PostInit();
     }
 
-    public SkillEffectConfig(int Id, Skill.Enum.SkillAffectTargetType SkillAffectTargetType, float Probability, string ValueFormula, Skill.Enum.DamageType ValueType, Skill.Enum.EffectType EffectType, bool CanCritical ) 
+    public SkillEffectConfig(int Id, Skill.Enum.SkillAffectTargetType SkillAffectTargetType, float Probability, string ValueFormula, Skill.Enum.DamageType ValueType, Skill.Enum.EffectType EffectType, bool CanCritical, int AttachStatus ) 
     {
         this.Id = Id;
         this.SkillAffectTargetType = SkillAffectTargetType;
@@ -37,6 +38,7 @@ public sealed partial class SkillEffectConfig :  Bright.Config.BeanBase
         this.ValueType = ValueType;
         this.EffectType = EffectType;
         this.CanCritical = CanCritical;
+        this.AttachStatus = AttachStatus;
         PostInit();
     }
 
@@ -70,12 +72,18 @@ public sealed partial class SkillEffectConfig :  Bright.Config.BeanBase
     /// 能否暴击
     /// </summary>
     public bool CanCritical { get; private set; }
+    /// <summary>
+    /// 附加状态
+    /// </summary>
+    public int AttachStatus { get; private set; }
+    public Status.StatusConfig AttachStatus_Ref { get; private set; }
 
     public const int __ID__ = 1262818951;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
+        this.AttachStatus_Ref = (_tables["Status.StatusTable"] as Status.StatusTable).GetOrDefault(AttachStatus);
         PostResolve();
     }
 
@@ -93,6 +101,7 @@ public sealed partial class SkillEffectConfig :  Bright.Config.BeanBase
         + "ValueType:" + ValueType + ","
         + "EffectType:" + EffectType + ","
         + "CanCritical:" + CanCritical + ","
+        + "AttachStatus:" + AttachStatus + ","
         + "}";
     }
     

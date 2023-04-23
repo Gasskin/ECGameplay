@@ -1,9 +1,10 @@
 ﻿using cfg.Skill;
 using cfg.Skill.Enum;
+using cfg.Status.Enum;
 
 namespace ECGameplay
 {
-    public interface IEffectComponent
+    public interface IAbilityEffectComponent
     {
         // void OnApplyEffect(IActionExecution execution);
         void OnApplyEffect(IAbilityExecution execution, AbilityEffect effect);
@@ -30,11 +31,26 @@ namespace ECGameplay
             switch (SkillEffectConfig.EffectType)
             {
                 case EffectType.Damage:
-                    AddComponent<DamageEffectComponent>();
+                    AddComponent<DamageAbilityEffectComponent>();
                     break;
                 case EffectType.Cure:
-                    AddComponent<CureEffectComponent>();
+                    AddComponent<CureAbilityEffectComponent>();
                     break;
+            }
+
+            if (SkillEffectConfig.AttachStatus_Ref!= null)
+            {
+                switch (SkillEffectConfig.AttachStatus_Ref.StatusType)
+                {
+                    case StatusType.Cure:
+                        break;
+                    case StatusType.Damage:
+                        break;
+                    case StatusType.ActionForbid:
+                        break;
+                    case StatusType.PropertyModify:
+                        break;
+                }
             }
         }
 
@@ -65,7 +81,7 @@ namespace ECGameplay
         {
             foreach (var comp in Components.Values)
             {
-                if (comp is IEffectComponent effectAssignComponent)
+                if (comp is IAbilityEffectComponent effectAssignComponent)
                 {
                     effectAssignComponent.OnApplyEffect(execution, this);
                 }

@@ -55,7 +55,7 @@ namespace ECGameplay
             GetComponent<AttributeComponent>().HealthPoint.MinusBaseValue(damageAction.Damage);
         }
         
-        private T AttachAbility<T>(int id) where T : Entity, IAbility
+        public T AttachAbility<T>(int id) where T : Entity, IAbility
         {
             if (TableUtil.Tables.SkillTable.DataMap.TryGetValue(id, out var config))
             {
@@ -65,8 +65,19 @@ namespace ECGameplay
             Debug.LogError("AttachAbility Error : " + id);
             return null;
         }
+        
+        public T AttachStatus<T>(int id) where T : Entity, IAbility
+        {
+            if (TableUtil.Tables.StatusTable.DataMap.TryGetValue(id, out var config))
+            {
+                return AddChild<T>(config);
+            }
 
-        private T AttachAction<T>(object config = null) where T : Entity, IAction
+            Debug.LogError("AttachAbility Error : " + id);
+            return null;
+        }
+
+        public T AttachAction<T>(object config = null) where T : Entity, IAction
         {
             var action = config == null ? AddChild<T>() : AddChild<T>(config);
             action.Enable = true;

@@ -23,19 +23,17 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
         { if(!_json["SkillAffectTargetType"].IsNumber) { throw new SerializationException(); }  SkillAffectTargetType = (Skill.Enum.SkillAffectTargetType)_json["SkillAffectTargetType"].AsInt; }
         { if(!_json["SkillTargetSelectType"].IsNumber) { throw new SerializationException(); }  SkillTargetSelectType = (Skill.Enum.SkillTargetSelectType)_json["SkillTargetSelectType"].AsInt; }
         { if(!_json["ColdTime"].IsNumber) { throw new SerializationException(); }  ColdTime = _json["ColdTime"]; }
-        { if(!_json["AttachStatus"].IsBoolean) { throw new SerializationException(); }  AttachStatus = _json["AttachStatus"]; }
         { var __json0 = _json["AttachEffect"]; if(!__json0.IsArray) { throw new SerializationException(); } AttachEffect = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  AttachEffect.Add(__v0); }   }
         PostInit();
     }
 
-    public SkillConfig(int Id, Skill.Enum.SkillSpellType SkillSpellType, Skill.Enum.SkillAffectTargetType SkillAffectTargetType, Skill.Enum.SkillTargetSelectType SkillTargetSelectType, float ColdTime, bool AttachStatus, System.Collections.Generic.List<int> AttachEffect ) 
+    public SkillConfig(int Id, Skill.Enum.SkillSpellType SkillSpellType, Skill.Enum.SkillAffectTargetType SkillAffectTargetType, Skill.Enum.SkillTargetSelectType SkillTargetSelectType, float ColdTime, System.Collections.Generic.List<int> AttachEffect ) 
     {
         this.Id = Id;
         this.SkillSpellType = SkillSpellType;
         this.SkillAffectTargetType = SkillAffectTargetType;
         this.SkillTargetSelectType = SkillTargetSelectType;
         this.ColdTime = ColdTime;
-        this.AttachStatus = AttachStatus;
         this.AttachEffect = AttachEffect;
         PostInit();
     }
@@ -63,10 +61,6 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
     /// </summary>
     public float ColdTime { get; private set; }
     /// <summary>
-    /// 附加状态
-    /// </summary>
-    public bool AttachStatus { get; private set; }
-    /// <summary>
     /// 附加效果
     /// </summary>
     public System.Collections.Generic.List<int> AttachEffect { get; private set; }
@@ -93,7 +87,6 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
         + "SkillAffectTargetType:" + SkillAffectTargetType + ","
         + "SkillTargetSelectType:" + SkillTargetSelectType + ","
         + "ColdTime:" + ColdTime + ","
-        + "AttachStatus:" + AttachStatus + ","
         + "AttachEffect:" + Bright.Common.StringUtil.CollectionToString(AttachEffect) + ","
         + "}";
     }

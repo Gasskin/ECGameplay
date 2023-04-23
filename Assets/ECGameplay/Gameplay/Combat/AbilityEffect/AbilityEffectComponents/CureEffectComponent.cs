@@ -1,6 +1,6 @@
 ﻿namespace ECGameplay
 {
-    public class CureEffectComponent: Component,IEffectComponent
+    public class CureAbilityEffectComponent: Component,IAbilityEffectComponent
     {
         public void OnApplyEffect(IAbilityExecution execution, AbilityEffect effect)
         {
