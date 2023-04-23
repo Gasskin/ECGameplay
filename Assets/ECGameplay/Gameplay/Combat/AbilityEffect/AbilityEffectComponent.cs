@@ -41,25 +41,40 @@ namespace ECGameplay
             }
         }
 
-        public EffectAssignActionExecution CreateAssignActionByIndex(Entity targetEntity, int index)
+        public void AssignAbilityEffect(int index, IAbilityExecution execution)
         {
-            if (AbilityEffects.Count <= index)
-                return null;
-            return AbilityEffects[index].CreateAssignAction(targetEntity);;
+            if (AbilityEffects.Count <= index) 
+                return;
+            AbilityEffects[index].AssignEffect(execution);
         }
 
-        public List<EffectAssignActionExecution> CreateAssignActions(Entity targetEntity)
+        public void AssignAllAbilityEffect(IAbilityExecution execution)
         {
-            var list = new List<EffectAssignActionExecution>();
             foreach (var abilityEffect in AbilityEffects)
             {
-                var effectAssign = abilityEffect.CreateAssignAction(targetEntity);
-                if (effectAssign != null)
-                {
-                    list.Add(effectAssign);
-                }
+                abilityEffect.AssignEffect(execution);
             }
-            return list;
         }
+
+        // public EffectAssignActionExecution CreateAssignActionByIndex(Entity targetEntity, int index)
+        // {
+        //     if (AbilityEffects.Count <= index)
+        //         return null;
+        //     return AbilityEffects[index].CreateAssignAction(targetEntity);;
+        // }
+        //
+        // public List<EffectAssignActionExecution> CreateAssignActions(Entity targetEntity)
+        // {
+        //     var list = new List<EffectAssignActionExecution>();
+        //     foreach (var abilityEffect in AbilityEffects)
+        //     {
+        //         var effectAssign = abilityEffect.CreateAssignAction(targetEntity);
+        //         if (effectAssign != null)
+        //         {
+        //             list.Add(effectAssign);
+        //         }
+        //     }
+        //     return list;
+        // }
     }
 }

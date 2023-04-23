@@ -1,10 +1,15 @@
 ﻿using cfg.Skill;
 using cfg.Skill.Enum;
-using ECGamePlay;
-using UnityEngine;
 
 namespace ECGameplay
 {
+    public interface IEffectComponent
+    {
+        // void OnApplyEffect(IActionExecution execution);
+        void OnApplyEffect(IAbilityExecution execution, AbilityEffect effect);
+    }
+
+    
     [DrawProperty]
     public class AbilityEffect : Entity
     {
@@ -25,9 +30,10 @@ namespace ECGameplay
             switch (SkillEffectConfig.EffectType)
             {
                 case EffectType.Damage:
-                    AddComponent<EffectDamageComponent>();
+                    AddComponent<DamageEffectComponent>();
                     break;
                 case EffectType.Cure:
+                    AddComponent<CureEffectComponent>();
                     break;
             }
         }
@@ -55,16 +61,27 @@ namespace ECGameplay
             }
         }
 
-        public EffectAssignActionExecution CreateAssignAction(Entity target)
+        public void AssignEffect(IAbilityExecution execution)
         {
-            if (OwnerAbility.OwnerEntity.EffectAssignAction.TryMakeAction(out var effectAssignActionExecution))
+            foreach (var comp in Components.Values)
             {
-                effectAssignActionExecution.AbilityEffect = this;
-                effectAssignActionExecution.AssignTarget = target;
+                if (comp is IEffectComponent effectAssignComponent)
+                {
+                    effectAssignComponent.OnApplyEffect(execution, this);
+                }
             }
-
-            return effectAssignActionExecution;
         }
+
+        // public EffectAssignActionExecution CreateAssignAction(Entity target)
+        // {
+        //     if (OwnerAbility.OwnerEntity.EffectAssignAction.TryMakeAction(out var effectAssignActionExecution))
+        //     {
+        //         effectAssignActionExecution.AbilityEffect = this;
+        //         effectAssignActionExecution.AssignTarget = target;
+        //     }
+        //
+        //     return effectAssignActionExecution;
+        // }
 
 #if UNITY_EDITOR
         public override string ToString()

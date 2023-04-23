@@ -31,7 +31,8 @@ namespace ECGameplay
     public class DamageActionExecution : Entity, IActionExecution
     {
         public IAction Action { get; set; }
-        public EffectAssignActionExecution EffectActionExecution { get; set; }
+        // public EffectAssignActionExecution EffectActionExecution { get; set; }
+        public AbilityEffect AbilityEffect { get; set; }
         public CombatEntity Creator { get; set; }
         public CombatEntity Target { get; set; }
 
@@ -41,15 +42,22 @@ namespace ECGameplay
         {
             Creator?.TriggerActionPoint(ActionPointType.BeforeCauseDamage, this);
             Target?.TriggerActionPoint(ActionPointType.BeforeReceiveDamage, this);
-            
-            var skillEffectConfig = EffectActionExecution.AbilityEffect.SkillEffectConfig;
+
+            var skillEffectConfig = AbilityEffect.SkillEffectConfig;
+            // var skillEffectConfig = EffectActionExecution.AbilityEffect.SkillEffectConfig;
             var attr = Creator?.GetComponent<AttributeComponent>();
-            if (attr == null || skillEffectConfig == null) 
+            if (attr == null || skillEffectConfig == null)
+            {
+                FinishAction();
                 return;
+            }
 
             // 没触发
             if (!MathUtil.PrizeDraw(skillEffectConfig.Probability))
+            {
+                FinishAction();
                 return;
+            }
             
             Damage = (float)ExpressionUtil.TryEvaluate(skillEffectConfig.ValueFormula, attr);
             var isCritical = MathUtil.PrizeDraw(attr.CriticalProbability.Value);

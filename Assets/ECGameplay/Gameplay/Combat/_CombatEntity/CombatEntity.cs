@@ -12,7 +12,7 @@ namespace ECGameplay
         // 格挡行为
         public BlockAction BlockAction { get; private set; }
         // 效果分配行为
-        public EffectAssignAction EffectAssignAction { get; private set; }
+        // public EffectAssignAction EffectAssignAction { get; private set; }
         // 伤害行为
         public DamageAction DamageAction { get; private set; }
         
@@ -29,7 +29,7 @@ namespace ECGameplay
             AttackAction = AttachAction<AttackAction>();
             BlockAction = AttachAction<BlockAction>();
             DamageAction = AttachAction<DamageAction>();
-            EffectAssignAction = AttachAction<EffectAssignAction>();
+            // EffectAssignAction = AttachAction<EffectAssignAction>();
 
             AttackAbility = AttachAbility<AttackAbility>(1);
         }

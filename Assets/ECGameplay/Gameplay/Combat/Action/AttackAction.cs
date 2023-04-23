@@ -26,16 +26,13 @@
     {
         // 行为
         public IAction Action { get; set; }
-
-        public EffectAssignActionExecution EffectActionExecution { get; set; }
-
+        public AbilityEffect AbilityEffect { get; set; }
         // 释放者
         public CombatEntity Creator { get; set; }
         // 目标
         public CombatEntity Target { get; set; }
         // 能力执行体
         public AttackAbilityExecution AttackAbilityExecution { get; set; }
-
         public void ApplyAttack()
         {
             var attackAbility = Creator.GetChild<AttackAbility>();

@@ -104,11 +104,12 @@ namespace ECGameplay
                 return;
             }
             
-            var actionExecutions = 
-                (Ability as AttackAbility)?.GetComponent<AbilityEffectComponent>().CreateAssignActions(AttackActionExecution.Target);
-            if (actionExecutions == null) return;
-            foreach (var actionExecution in actionExecutions)
-                actionExecution.AssignEffect();
+            // var actionExecutions = 
+            //     (Ability as AttackAbility)?.GetComponent<AbilityEffectComponent>().CreateAssignActions(AttackActionExecution.Target);
+            // if (actionExecutions == null) return;
+            // foreach (var actionExecution in actionExecutions)
+            //     actionExecution.AssignEffect();
+            (Ability as AttackAbility)?.GetComponent<AbilityEffectComponent>()?.AssignAllAbilityEffect(this);
             
             Debug.LogError("进行一次普工");
             
