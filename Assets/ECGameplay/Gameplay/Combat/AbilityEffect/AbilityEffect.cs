@@ -1,13 +1,12 @@
-﻿using cfg.Skill;
-using cfg.Skill.Enum;
-using cfg.Status.Enum;
+﻿using cfg.Effect;
+using cfg.Effect.Enum;
 
 namespace ECGameplay
 {
-    public interface IAbilityEffectComponent
+    public interface IEffectComponent
     {
         // void OnApplyEffect(IActionExecution execution);
-        void OnApplyEffect(IAbilityExecution execution, AbilityEffect effect);
+        void OnApplyEffect(IAbilityExecution execution);
     }
 
     
@@ -20,38 +19,12 @@ namespace ECGameplay
         public IAbility OwnerAbility => Parent as IAbility;
 
         /// 效果配表
-        public SkillEffectConfig SkillEffectConfig { get; set; }
+        public EffectConfig EffectConfig { get; set; }
 
 
         public override void Awake(object initData)
         {
-            SkillEffectConfig = initData as SkillEffectConfig;
-            if (SkillEffectConfig == null) 
-                return;
-            switch (SkillEffectConfig.EffectType)
-            {
-                case EffectType.Damage:
-                    AddComponent<DamageAbilityEffectComponent>();
-                    break;
-                case EffectType.Cure:
-                    AddComponent<CureAbilityEffectComponent>();
-                    break;
-            }
-
-            if (SkillEffectConfig.AttachStatus_Ref!= null)
-            {
-                switch (SkillEffectConfig.AttachStatus_Ref.StatusType)
-                {
-                    case StatusType.Cure:
-                        break;
-                    case StatusType.Damage:
-                        break;
-                    case StatusType.ActionForbid:
-                        break;
-                    case StatusType.PropertyModify:
-                        break;
-                }
-            }
+            EffectConfig = initData as EffectConfig;
         }
 
         public override void OnDestroy()
@@ -79,13 +52,13 @@ namespace ECGameplay
 
         public void AssignEffect(IAbilityExecution execution)
         {
-            foreach (var comp in Components.Values)
-            {
-                if (comp is IAbilityEffectComponent effectAssignComponent)
-                {
-                    effectAssignComponent.OnApplyEffect(execution, this);
-                }
-            }
+            // foreach (var comp in Components.Values)
+            // {
+            //     if (comp is IEffectComponent effectAssignComponent)
+            //     {
+            //         effectAssignComponent.OnApplyEffect(execution);
+            //     }
+            // }
         }
 
         // public EffectAssignActionExecution CreateAssignAction(Entity target)
@@ -102,10 +75,10 @@ namespace ECGameplay
 #if UNITY_EDITOR
         public override string ToString()
         {
-            return $"触发概率：{SkillEffectConfig.Probability * 100}%\n"
-                   + $"效果类型：{SkillEffectConfig.EffectType}\n"
-                   + $"数值公式：{SkillEffectConfig.ValueFormula}\n"
-                   + $"类型：{SkillEffectConfig.ValueType}";
+            return $"触发概率：{EffectConfig.Probability * 100}%\n"
+                   + $"效果类型：{EffectConfig.EffectType}\n"
+                   + $"数值公式：{EffectConfig.ValueFormula}\n"
+                   + $"类型：{EffectConfig.ValueType}";
         }
 #endif
     }

@@ -1,0 +1,44 @@
+[
+  {
+    "Id": 1,
+    "EffectType": 0,
+    "ControlType": 0,
+    "EffectTarget": 1,
+    "EffectTiming": 1,
+    "Duration": 1000,
+    "CanStack": false,
+    "Interval": 200,
+    "Probability": 1,
+    "ValueFormula": "攻击力+20",
+    "ValueType": 1,
+    "CanCritical": true
+  },
+  {
+    "Id": 2,
+    "EffectType": 1,
+    "ControlType": 0,
+    "EffectTarget": 0,
+    "EffectTiming": 0,
+    "Duration": 0,
+    "CanStack": false,
+    "Interval": 0,
+    "Probability": 1,
+    "ValueFormula": "攻击力*0.5",
+    "ValueType": 0,
+    "CanCritical": true
+  },
+  {
+    "Id": 3,
+    "EffectType": 2,
+    "ControlType": 3,
+    "EffectTarget": 0,
+    "EffectTiming": 1,
+    "Duration": 5000,
+    "CanStack": false,
+    "Interval": 1000,
+    "Probability": 1,
+    "ValueFormula": "200",
+    "ValueType": 0,
+    "CanCritical": false
+  }
+]

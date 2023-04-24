@@ -7,6 +7,8 @@
     {
         public IAbility Ability { get; set; }
         public CombatEntity OwnerEntity { get; set; }
+        
+        public IActionExecution ActionExecution { get; set; }
 
         /// 开始执行
         public void BeginExecute();

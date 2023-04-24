@@ -15,31 +15,26 @@ namespace cfg
 public sealed partial class Tables
 {
     public Skill.SkillTable SkillTable {get; }
-    public Skill.SkillEffectTable SkillEffectTable {get; }
-    public Status.StatusTable StatusTable {get; }
+    public Effect.EffectTable EffectTable {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
         SkillTable = new Skill.SkillTable(loader("skill_skilltable")); 
         tables.Add("Skill.SkillTable", SkillTable);
-        SkillEffectTable = new Skill.SkillEffectTable(loader("skill_skilleffecttable")); 
-        tables.Add("Skill.SkillEffectTable", SkillEffectTable);
-        StatusTable = new Status.StatusTable(loader("status_statustable")); 
-        tables.Add("Status.StatusTable", StatusTable);
+        EffectTable = new Effect.EffectTable(loader("effect_effecttable")); 
+        tables.Add("Effect.EffectTable", EffectTable);
         PostInit();
 
         SkillTable.Resolve(tables); 
-        SkillEffectTable.Resolve(tables); 
-        StatusTable.Resolve(tables); 
+        EffectTable.Resolve(tables); 
         PostResolve();
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
     {
         SkillTable.TranslateText(translator); 
-        SkillEffectTable.TranslateText(translator); 
-        StatusTable.TranslateText(translator); 
+        EffectTable.TranslateText(translator); 
     }
     
     partial void PostInit();

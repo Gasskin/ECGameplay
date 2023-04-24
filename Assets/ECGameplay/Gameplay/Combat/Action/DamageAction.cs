@@ -43,7 +43,7 @@ namespace ECGameplay
             Creator?.TriggerActionPoint(ActionPointType.BeforeCauseDamage, this);
             Target?.TriggerActionPoint(ActionPointType.BeforeReceiveDamage, this);
 
-            var skillEffectConfig = AbilityEffect.SkillEffectConfig;
+            var skillEffectConfig = AbilityEffect.EffectConfig;
             // var skillEffectConfig = EffectActionExecution.AbilityEffect.SkillEffectConfig;
             var attr = Creator?.GetComponent<AttributeComponent>();
             if (attr == null || skillEffectConfig == null)

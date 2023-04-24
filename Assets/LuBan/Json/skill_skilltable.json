@@ -2,9 +2,9 @@
   {
     "Id": 1,
     "SkillSpellType": 0,
-    "SkillAffectTargetType": 2,
+    "SkillAffectTargetType": 0,
     "SkillTargetSelectType": 0,
-    "ColdTime": 1,
+    "ColdTime": 0,
     "AttachEffect": [
       1,
       2

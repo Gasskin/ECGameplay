@@ -64,14 +64,14 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
     /// 附加效果
     /// </summary>
     public System.Collections.Generic.List<int> AttachEffect { get; private set; }
-    public System.Collections.Generic.List<Skill.SkillEffectConfig> AttachEffect_Ref { get; private set; }
+    public System.Collections.Generic.List<Effect.EffectConfig> AttachEffect_Ref { get; private set; }
 
     public const int __ID__ = 1652224150;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
-        { Skill.SkillEffectTable __table = (Skill.SkillEffectTable)_tables["Skill.SkillEffectTable"]; this.AttachEffect_Ref = new System.Collections.Generic.List<Skill.SkillEffectConfig>(); foreach(var __e in AttachEffect) { this.AttachEffect_Ref.Add(__table.GetOrDefault(__e)); } }
+        { Effect.EffectTable __table = (Effect.EffectTable)_tables["Effect.EffectTable"]; this.AttachEffect_Ref = new System.Collections.Generic.List<Effect.EffectConfig>(); foreach(var __e in AttachEffect) { this.AttachEffect_Ref.Add(__table.GetOrDefault(__e)); } }
         PostResolve();
     }
 

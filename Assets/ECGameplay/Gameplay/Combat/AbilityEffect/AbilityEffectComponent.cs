@@ -55,26 +55,5 @@ namespace ECGameplay
                 abilityEffect.AssignEffect(execution);
             }
         }
-
-        // public EffectAssignActionExecution CreateAssignActionByIndex(Entity targetEntity, int index)
-        // {
-        //     if (AbilityEffects.Count <= index)
-        //         return null;
-        //     return AbilityEffects[index].CreateAssignAction(targetEntity);;
-        // }
-        //
-        // public List<EffectAssignActionExecution> CreateAssignActions(Entity targetEntity)
-        // {
-        //     var list = new List<EffectAssignActionExecution>();
-        //     foreach (var abilityEffect in AbilityEffects)
-        //     {
-        //         var effectAssign = abilityEffect.CreateAssignAction(targetEntity);
-        //         if (effectAssign != null)
-        //         {
-        //             list.Add(effectAssign);
-        //         }
-        //     }
-        //     return list;
-        // }
     }
 }

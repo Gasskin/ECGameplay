@@ -15,7 +15,7 @@ public class Hero : MonoBehaviour
     void Start()
     {
         combatEntity = MasterEntity.Instance.AddChild<CombatEntity>();
-        combatEntity.ListenActionPoint(ActionPointType.BeforeGiveAttackEffect, OnBeforeGiveAttackEffect);
+        combatEntity.ListenActionPoint(ActionPointType.AfterGiveAttack, OnAfterGiveAttackEffect);
     }
 
     public void Attack()
@@ -28,7 +28,7 @@ public class Hero : MonoBehaviour
     }
 
 
-    private void OnBeforeGiveAttackEffect(Entity actionExecution)
+    private void OnAfterGiveAttackEffect(Entity actionExecution)
     {
         SpawnLineEffect(transform.position, monsterMono.transform.position);
         SpawnHitEffect(transform.position, monsterMono.transform.position);

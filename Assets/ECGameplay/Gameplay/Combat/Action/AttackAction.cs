@@ -37,7 +37,7 @@
         {
             var attackAbility = Creator.GetChild<AttackAbility>();
             AttackAbilityExecution = attackAbility.CreateExecution().As<AttackAbilityExecution>();
-            AttackAbilityExecution.AttackActionExecution = this;
+            AttackAbilityExecution.ActionExecution = this;
             AttackAbilityExecution.BeginExecute();
         }
         

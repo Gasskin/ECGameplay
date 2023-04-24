@@ -13,14 +13,15 @@ namespace ECGameplay
 
         public bool Enable { get; set; }
         
-        private SkillConfig SkillConfig { get; set; }
+        public SkillConfig SkillConfig { get; set; }
 
         public override void Awake(object initObject)
         {
-            if (initObject is SkillConfig skillConfig)
-            {
-                AddComponent<AbilityEffectComponent>(skillConfig);
-            }
+            SkillConfig = initObject as SkillConfig;
+            // if (initObject is SkillConfig skillConfig)
+            // {
+                // AddComponent<AbilityEffectComponent>(skillConfig);
+            // }
         }
 
         public void TryActivateAbility()
@@ -44,6 +45,7 @@ namespace ECGameplay
         {
             var execution = OwnerEntity.AddChild<AttackAbilityExecution>(this);
             execution.Ability = this;
+            execution.OwnerEntity = OwnerEntity;
             return execution;
         }
     }
@@ -52,7 +54,7 @@ namespace ECGameplay
     {
         public IAbility Ability { get; set; }
         public CombatEntity OwnerEntity { get; set; }
-        public AttackActionExecution AttackActionExecution { get; set; }
+        public IActionExecution ActionExecution { get; set; }
 
         // 被格挡
         private bool blocked;
@@ -67,7 +69,7 @@ namespace ECGameplay
 
         public void EndExecute()
         {
-            AttackActionExecution.FinishAction();
+            ActionExecution.FinishAction();
             Destroy(this);
         }
         
@@ -95,8 +97,8 @@ namespace ECGameplay
         {
             damaged = true;
 
-            AttackActionExecution.Creator?.TriggerActionPoint(ActionPointType.BeforeGiveAttackEffect, AttackActionExecution);
-            AttackActionExecution.Target?.TriggerActionPoint(ActionPointType.BeforeReceiveAttackEffect, AttackActionExecution);
+            ActionExecution.Creator?.TriggerActionPoint(ActionPointType.BeforeGiveAttackEffect, (AttackActionExecution)ActionExecution);
+            ActionExecution.Target?.TriggerActionPoint(ActionPointType.BeforeReceiveAttackEffect, (AttackActionExecution)ActionExecution);
 
             if (blocked)
             {
@@ -109,12 +111,30 @@ namespace ECGameplay
             // if (actionExecutions == null) return;
             // foreach (var actionExecution in actionExecutions)
             //     actionExecution.AssignEffect();
-            (Ability as AttackAbility)?.GetComponent<AbilityEffectComponent>()?.AssignAllAbilityEffect(this);
+            // (Ability as AttackAbility)?.GetComponent<AbilityEffectComponent>()?.AssignAllAbilityEffect(this);
+            var attackAbility = Ability as AttackAbility;
+            if (attackAbility != null) 
+            {
+                foreach (var effect in attackAbility.SkillConfig.AttachEffect_Ref)    
+                {
+                    if (OwnerEntity.AddEffectAction.TryMakeAction(out var actionExecution))
+                    {
+                        actionExecution.Target = ActionExecution.Target;
+                        actionExecution.EffectConfig = effect;
+                        actionExecution.AddEffect();
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            
             
             Debug.LogError("进行一次普工");
             
-            AttackActionExecution.Creator?.TriggerActionPoint(ActionPointType.AfterGiveAttack, AttackActionExecution);
-            AttackActionExecution.Target?.TriggerActionPoint(ActionPointType.AfterReceiveAttack, AttackActionExecution);
+            ActionExecution.Creator?.TriggerActionPoint(ActionPointType.AfterGiveAttack, (AttackActionExecution)ActionExecution);
+            ActionExecution.Target?.TriggerActionPoint(ActionPointType.AfterReceiveAttack, (AttackActionExecution)ActionExecution);
         }
     }
 }

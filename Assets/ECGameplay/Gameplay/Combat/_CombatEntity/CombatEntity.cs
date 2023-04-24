@@ -1,5 +1,4 @@
 ﻿using System;
-using cfg.Status;
 using UnityEngine;
 
 namespace ECGameplay
@@ -10,10 +9,11 @@ namespace ECGameplay
         public AttackAction AttackAction { get; private set; }
         // 格挡行为
         public BlockAction BlockAction { get; private set; }
-        // 效果分配行为
-        // public EffectAssignAction EffectAssignAction { get; private set; }
         // 伤害行为
         public DamageAction DamageAction { get; private set; }
+
+        public AddEffectAction AddEffectAction { get; private set; }
+        
         
         // 普攻能力
         public AttackAbility AttackAbility { get; private set; }
@@ -24,11 +24,12 @@ namespace ECGameplay
         {
             AddComponent<AttributeComponent>();
             AddComponent<ActionPointComponent>();
-            AddComponent<StatusComponent>();
+            AddComponent<EffectComponent>();
             
             AttackAction = AttachAction<AttackAction>();
             BlockAction = AttachAction<BlockAction>();
             DamageAction = AttachAction<DamageAction>();
+            AddEffectAction = AttachAction<AddEffectAction>();
             // EffectAssignAction = AttachAction<EffectAssignAction>();
 
             AttackAbility = AttachAbility<AttackAbility>(1);
@@ -66,10 +67,14 @@ namespace ECGameplay
     #endregion
 
     #region 添加能力/状态
-
-        public T AttachAbility<T>(object config = null) where T : Entity, IAbility
+        public T AttachAbility<T>(int id) where T : Entity, IAbility
         {
-            return config == null ? AddChild<T>() : AddChild<T>(config);
+            return AddChild<T>(TableUtil.Tables.SkillTable[id]);
+        }
+
+        public EffectAbility AttachEffect(int id)
+        {
+            return GetComponent<EffectComponent>().AttachEffect(TableUtil.Tables.EffectTable[id]);
         }
         
         public T AttachAction<T>(object config = null) where T : Entity, IAction
@@ -77,27 +82,6 @@ namespace ECGameplay
             var action = config == null ? AddChild<T>() : AddChild<T>(config);
             action.Enable = true;
             return action;
-        }
-
-        public StatusAbility AttachStatus(object config)
-        {
-            return GetComponent<StatusComponent>().AttachStatus(config);
-        }
-        
-        public bool TryGetStatus(int id, out StatusAbility status)
-        {
-            status = null;
-            var comp = GetComponent<StatusComponent>();
-            if (comp.TypeIdStatuses.ContainsKey(id))
-            {
-                if (comp.TypeIdStatuses[id].Count > 0) 
-                {
-                    status = comp.TypeIdStatuses[id][0];
-                    return true;
-                }
-            }
-
-            return false;
         }
     #endregion
     }
