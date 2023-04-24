@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using cfg.Status;
 
 namespace ECGameplay
 {
@@ -8,13 +7,20 @@ namespace ECGameplay
         public CombatEntity OwnerEntity => Entity.As<CombatEntity>();
 
         public List<StatusAbility> Statuses { get; set; } = new List<StatusAbility>();
-        
-        public Dictionary<string,List<StatusAbility>> TypeIdStatuses { get; set; } = new Dictionary<string, List<StatusAbility>>();
-        
-        public StatusAbility AttachStatus(StatusConfig statusConfig)
+
+        public Dictionary<int, List<StatusAbility>> TypeIdStatuses { get; set; } =
+            new Dictionary<int, List<StatusAbility>>();
+
+        public StatusAbility AttachStatus(object statusConfig)
         {
-            var status = OwnerEntity.AttachStatus<StatusAbility>(statusConfig.Id);
-            return null;
+            var status = OwnerEntity.AttachAbility<StatusAbility>(statusConfig);
+            if (!TypeIdStatuses.ContainsKey(status.StatusConfig.Id))
+            {
+                TypeIdStatuses.Add(status.StatusConfig.Id, new List<StatusAbility>());
+            }
+            TypeIdStatuses[status.StatusConfig.Id].Add(status);
+            Statuses.Add(status);
+            return status;
         }
     }
 }

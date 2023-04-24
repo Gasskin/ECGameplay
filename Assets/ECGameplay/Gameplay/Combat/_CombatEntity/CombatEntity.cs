@@ -1,4 +1,5 @@
 ﻿using System;
+using cfg.Status;
 using UnityEngine;
 
 namespace ECGameplay
@@ -23,7 +24,8 @@ namespace ECGameplay
         {
             AddComponent<AttributeComponent>();
             AddComponent<ActionPointComponent>();
-
+            AddComponent<StatusComponent>();
+            
             AttackAction = AttachAction<AttackAction>();
             BlockAction = AttachAction<BlockAction>();
             DamageAction = AttachAction<DamageAction>();
@@ -31,6 +33,8 @@ namespace ECGameplay
 
             AttackAbility = AttachAbility<AttackAbility>(1);
         }
+
+    #region 行动点
 
         public void ListenActionPoint(ActionPointType actionPointType, Action<Entity> action)
         {
@@ -47,6 +51,10 @@ namespace ECGameplay
             GetComponent<ActionPointComponent>().TriggerActionPoint(actionPointType, action);
         }
 
+    #endregion
+
+    #region 受伤/治疗
+
         public void ReceiveDamage(IActionExecution actionExecution)
         {
             var damageAction = actionExecution as DamageActionExecution;
@@ -54,34 +62,43 @@ namespace ECGameplay
                 return;
             GetComponent<AttributeComponent>().HealthPoint.MinusBaseValue(damageAction.Damage);
         }
-        
-        public T AttachAbility<T>(int id) where T : Entity, IAbility
-        {
-            if (TableUtil.Tables.SkillTable.DataMap.TryGetValue(id, out var config))
-            {
-                return AddChild<T>(config);
-            }
 
-            Debug.LogError("AttachAbility Error : " + id);
-            return null;
+    #endregion
+
+    #region 添加能力/状态
+
+        public T AttachAbility<T>(object config = null) where T : Entity, IAbility
+        {
+            return config == null ? AddChild<T>() : AddChild<T>(config);
         }
         
-        public T AttachStatus<T>(int id) where T : Entity, IAbility
-        {
-            if (TableUtil.Tables.StatusTable.DataMap.TryGetValue(id, out var config))
-            {
-                return AddChild<T>(config);
-            }
-
-            Debug.LogError("AttachAbility Error : " + id);
-            return null;
-        }
-
         public T AttachAction<T>(object config = null) where T : Entity, IAction
         {
             var action = config == null ? AddChild<T>() : AddChild<T>(config);
             action.Enable = true;
             return action;
         }
+
+        public StatusAbility AttachStatus(object config)
+        {
+            return GetComponent<StatusComponent>().AttachStatus(config);
+        }
+        
+        public bool TryGetStatus(int id, out StatusAbility status)
+        {
+            status = null;
+            var comp = GetComponent<StatusComponent>();
+            if (comp.TypeIdStatuses.ContainsKey(id))
+            {
+                if (comp.TypeIdStatuses[id].Count > 0) 
+                {
+                    status = comp.TypeIdStatuses[id][0];
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    #endregion
     }
 }
