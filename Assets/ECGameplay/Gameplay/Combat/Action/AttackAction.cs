@@ -26,7 +26,6 @@
     {
         // 行为
         public IAction Action { get; set; }
-        public AbilityEffect AbilityEffect { get; set; }
         // 释放者
         public CombatEntity Creator { get; set; }
         // 目标

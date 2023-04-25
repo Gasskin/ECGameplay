@@ -39,16 +39,14 @@ namespace ECGameplay
         public EffectConfig EffectConfig { get; set; }
 
         public EffectAbility Effect { get; set; }
-
+        
         public void AddEffect()
         {
             if (!EffectConfig.CanStack)
             {
                 if (Target.GetComponent<EffectComponent>().TryGetEffect(EffectConfig.Id,out var effect))
                 {
-                    var lifeTimer = effect.GetComponent<EffectLifeTimerComponent>();
-                    lifeTimer.SetEffectConfig(EffectConfig);
-                    lifeTimer.Reset();
+                    effect.Reset();
                     return;
                 }
             }
@@ -63,7 +61,7 @@ namespace ECGameplay
                     break;
             }
 
-            Effect.AddComponent<EffectLifeTimerComponent>();
+            Effect.AddEffectActionExecution = this;
             Effect.ActivateAbility();
             
             Creator?.TriggerActionPoint(ActionPointType.AfterGiveEffect, this);

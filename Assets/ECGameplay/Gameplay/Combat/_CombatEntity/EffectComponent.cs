@@ -6,7 +6,6 @@ namespace ECGameplay
     public class EffectComponent : Component
     {
         public CombatEntity OwnerEntity => Entity.As<CombatEntity>();
-        public List<EffectAbility> Effects { get; set; } = new List<EffectAbility>();
         public Dictionary<int,List<EffectAbility>> Id2Effects { get; set; } = new Dictionary<int, List<EffectAbility>>();
 
         public EffectAbility AttachEffect(EffectConfig effectConfig)
@@ -17,17 +16,25 @@ namespace ECGameplay
                 Id2Effects.Add(effectConfig.Id,new List<EffectAbility>());
             }
             Id2Effects[effectConfig.Id].Add(effect);
-            Effects.Add(effect);
             return effect;
         }
-        
+
+        public void RemoveEffect(int id)
+        {
+            if (Id2Effects.TryGetValue(id,out var list))
+            {
+                var effect = list[0];
+                list.RemoveAt(0);
+                Entity.Destroy(effect);
+            }
+        }
         
         public bool TryGetEffect(int id,out EffectAbility effect)
         {
             effect = null;
-            if (Id2Effects.ContainsKey(id))
+            if (Id2Effects.TryGetValue(id,out var list) && list.Count > 0)
             {
-                effect = Id2Effects[id][0];
+                effect = list[0];
                 return true;
             }
             return false;

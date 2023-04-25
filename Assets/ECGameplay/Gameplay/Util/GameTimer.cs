@@ -4,24 +4,26 @@ namespace ECGameplay
 {
     public interface IGameTimer
     {
-        public void Update(float delta,Action action);
+        public bool IsFinish { get; }
+        public void Update(float delta);
         public void Reset();
     }
 
     public class DurationTimer : IGameTimer
     {
-        public bool IsFinish => time >= targetTime;
-        
-        private float targetTime;
+        public bool IsFinish => time >= maxTime;
+        private Action action;
+        private readonly float maxTime;
         private float time;
-        
-        public DurationTimer(float targetTime)
+
+        public DurationTimer(float maxTime, Action action)
         {
-            this.targetTime = targetTime;
+            this.maxTime = maxTime;
+            this.action = action;
             time = 0;
         }
-        
-        public void Update(float delta, Action action)
+
+        public void Update(float delta)
         {
             if (!IsFinish)
             {
@@ -38,88 +40,52 @@ namespace ECGameplay
             time = 0;
         }
     }
-    
-    public class GameTimer
+
+    public class IntervalTimer : IGameTimer
     {
-        private float maxTime;
-        private float time;
-        private float interval;
+        public bool IsFinish => time >= maxTime;
+
+        private readonly float maxTime;
         private float intervalTime;
-        private Action action;
+        private float countTime;
+        private float time;
 
-        public bool IsFinished => time >= maxTime;
+        private Action intervalAction;
+        private Action endAction;
 
-        public float MaxTime
+        public IntervalTimer(float maxTime, float intervalTime, Action intervalAction, Action endAction)
         {
-            get => maxTime;
-            set => maxTime = value;
-        }
-
-        public GameTimer(float maxTime, Action action)
-        {
-            if (maxTime <= 0)
-                throw new Exception($"_maxTime can not be 0 or negative");
             this.maxTime = maxTime;
-            this.action = action;
-            time = 0f;
-        }
-
-        public GameTimer(float maxTime, float interval, Action action)
-        {
-            if (maxTime <= 0)
-                throw new Exception($"_maxTime can not be 0 or negative");
-            if (interval <= 0)
-                throw new Exception($"interval can not be 0 or negative");
-            this.maxTime = maxTime;
-            this.interval = interval;
-            intervalTime = 0;
+            this.intervalTime = intervalTime;
+            this.intervalAction = intervalAction;
+            this.endAction = endAction;
+            countTime = 0;
             time = 0;
-            this.action = action;
+        }
+
+        public void Update(float delta)
+        {
+            if (!IsFinish)
+            {
+                time += delta;
+                countTime += delta;
+                if (countTime > intervalTime)
+                {
+                    countTime -= intervalTime;
+                    intervalAction?.Invoke();
+                }
+
+                if (IsFinish)
+                {
+                    endAction?.Invoke();
+                }
+            }
         }
 
         public void Reset()
         {
-            time = 0f;
-        }
-
-        public void UpdateAsFinish(float delta)
-        {
-            if (!IsFinished)
-            {
-                time += delta;
-                if (IsFinished)
-                {
-                    action?.Invoke();
-                }
-            }
-        }
-
-        public void UpdateAsRepeat(float delta)
-        {
-            if (delta > maxTime)
-                throw new Exception($"_maxTime too small, delta:{delta} > _maxTime:{maxTime}");
-            time += delta;
-            while (time >= maxTime)
-            {
-                time -= maxTime;
-                action?.Invoke();
-            }
-        }
-
-        public void UpdateAsInterval(float delta)
-        {
-            if (delta > maxTime)
-                throw new Exception($"_maxTime too small, delta:{delta} > _maxTime:{maxTime}");
-            if (!IsFinished)
-            {
-                time += delta;
-                intervalTime += delta;
-                while (intervalTime >= interval)
-                {
-                    intervalTime -= interval;
-                    action?.Invoke();
-                }
-            }
+            time = 0;
+            countTime = 0;
         }
     }
 }

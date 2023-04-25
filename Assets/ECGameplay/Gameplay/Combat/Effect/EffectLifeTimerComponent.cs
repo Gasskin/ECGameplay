@@ -13,16 +13,7 @@ namespace ECGameplay
 
         public override void Awake()
         {
-            EffectConfig = Entity.As<EffectAbility>().EffectConfig;
-
-            switch (EffectConfig.EffectTiming)
-            {
-                case EffectTiming.Immediate:
-                    break;
-                case EffectTiming.Duration:
-                    LifeTimer = new DurationTimer(EffectConfig.Duration);
-                    break;
-            }
+            
         }
 
         public void Reset()
@@ -32,7 +23,6 @@ namespace ECGameplay
 
         public override void Update()
         {
-            LifeTimer.Update(Time.deltaTime, OnFinish);
         }
 
         public void SetEffectConfig(EffectConfig effectConfig)

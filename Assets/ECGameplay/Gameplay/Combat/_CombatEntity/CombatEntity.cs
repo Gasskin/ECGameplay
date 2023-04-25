@@ -76,6 +76,11 @@ namespace ECGameplay
         {
             return GetComponent<EffectComponent>().AttachEffect(TableUtil.Tables.EffectTable[id]);
         }
+
+        public void RemoveEffect(int id)
+        {
+            GetComponent<EffectComponent>().RemoveEffect(id);
+        }
         
         public T AttachAction<T>(object config = null) where T : Entity, IAction
         {

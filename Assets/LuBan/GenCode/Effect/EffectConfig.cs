@@ -24,8 +24,8 @@ public sealed partial class EffectConfig :  Bright.Config.BeanBase
         { if(!_json["EffectTarget"].IsNumber) { throw new SerializationException(); }  EffectTarget = (Effect.Enum.EffectTarget)_json["EffectTarget"].AsInt; }
         { if(!_json["EffectTiming"].IsNumber) { throw new SerializationException(); }  EffectTiming = (Effect.Enum.EffectTiming)_json["EffectTiming"].AsInt; }
         { if(!_json["Duration"].IsNumber) { throw new SerializationException(); }  Duration = _json["Duration"]; }
-        { if(!_json["CanStack"].IsBoolean) { throw new SerializationException(); }  CanStack = _json["CanStack"]; }
         { if(!_json["Interval"].IsNumber) { throw new SerializationException(); }  Interval = _json["Interval"]; }
+        { if(!_json["CanStack"].IsBoolean) { throw new SerializationException(); }  CanStack = _json["CanStack"]; }
         { if(!_json["Probability"].IsNumber) { throw new SerializationException(); }  Probability = _json["Probability"]; }
         { if(!_json["ValueFormula"].IsString) { throw new SerializationException(); }  ValueFormula = _json["ValueFormula"]; }
         { if(!_json["ValueType"].IsNumber) { throw new SerializationException(); }  ValueType = (Effect.Enum.DamageType)_json["ValueType"].AsInt; }
@@ -33,7 +33,7 @@ public sealed partial class EffectConfig :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public EffectConfig(int Id, Effect.Enum.EffectType EffectType, Effect.Enum.ControlType ControlType, Effect.Enum.EffectTarget EffectTarget, Effect.Enum.EffectTiming EffectTiming, float Duration, bool CanStack, float Interval, float Probability, string ValueFormula, Effect.Enum.DamageType ValueType, bool CanCritical ) 
+    public EffectConfig(int Id, Effect.Enum.EffectType EffectType, Effect.Enum.ControlType ControlType, Effect.Enum.EffectTarget EffectTarget, Effect.Enum.EffectTiming EffectTiming, float Duration, float Interval, bool CanStack, float Probability, string ValueFormula, Effect.Enum.DamageType ValueType, bool CanCritical ) 
     {
         this.Id = Id;
         this.EffectType = EffectType;
@@ -41,8 +41,8 @@ public sealed partial class EffectConfig :  Bright.Config.BeanBase
         this.EffectTarget = EffectTarget;
         this.EffectTiming = EffectTiming;
         this.Duration = Duration;
-        this.CanStack = CanStack;
         this.Interval = Interval;
+        this.CanStack = CanStack;
         this.Probability = Probability;
         this.ValueFormula = ValueFormula;
         this.ValueType = ValueType;
@@ -77,13 +77,13 @@ public sealed partial class EffectConfig :  Bright.Config.BeanBase
     /// </summary>
     public float Duration { get; private set; }
     /// <summary>
+    /// 间隔(毫秒)
+    /// </summary>
+    public float Interval { get; private set; }
+    /// <summary>
     /// 可否叠加
     /// </summary>
     public bool CanStack { get; private set; }
-    /// <summary>
-    /// 间隔
-    /// </summary>
-    public float Interval { get; private set; }
     /// <summary>
     /// 触发概率
     /// </summary>
@@ -122,8 +122,8 @@ public sealed partial class EffectConfig :  Bright.Config.BeanBase
         + "EffectTarget:" + EffectTarget + ","
         + "EffectTiming:" + EffectTiming + ","
         + "Duration:" + Duration + ","
-        + "CanStack:" + CanStack + ","
         + "Interval:" + Interval + ","
+        + "CanStack:" + CanStack + ","
         + "Probability:" + Probability + ","
         + "ValueFormula:" + ValueFormula + ","
         + "ValueType:" + ValueType + ","

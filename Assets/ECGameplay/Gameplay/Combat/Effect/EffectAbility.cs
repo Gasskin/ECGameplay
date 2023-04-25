@@ -3,11 +3,21 @@ using cfg.Effect.Enum;
 
 namespace ECGameplay
 {
+    public interface IEffectComponent
+    {
+        public void Reset();
+    }
+
     public class EffectAbility : Entity
     {
-        public CombatEntity OwnerEntity { get; set; }
-        public bool Enable { get; set; }
+        public CombatEntity OwnerEntity
+        {
+            get=> Parent.As<CombatEntity>(); 
+            set{}
+        }
         public EffectConfig EffectConfig { get; set; }
+        public AddEffectActionExecution AddEffectActionExecution { get; set; }
+        public Component EffectComponent { get; set; }
 
         public override void Awake(object initData)
         {
@@ -19,28 +29,32 @@ namespace ECGameplay
             switch (EffectConfig.EffectType)
             {
                 case EffectType.Damage:
-                    AddComponent<EffectDamageComponent>();
+                    EffectComponent = AddComponent<EffectDamageComponent>();
                     break;
                 case EffectType.Cure:
-                    AddComponent<EffectCureComponent>();
+                    EffectComponent = AddComponent<EffectCureComponent>();
                     break;
             }
         }
 
         public void ActivateAbility()
         {
-            foreach (var comp in Components.Values)
-            {
-                comp.Enable = true;
-            }
+            EffectComponent.Enable = true;
         }
 
         public void DeactivateAbility()
         {
-            foreach (var comp in Components.Values)
-            {
-                comp.Enable = false;
-            }
+            EffectComponent.Enable = false;
+        }
+        
+        public void EndAbility()
+        {
+            OwnerEntity.RemoveEffect(EffectConfig.Id);
+        }
+
+        public void Reset()
+        {
+            (EffectComponent as IEffectComponent)?.Reset();
         }
     }
 }

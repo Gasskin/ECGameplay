@@ -19,9 +19,13 @@ namespace cfg.Effect.Enum
         /// </summary>
         Immediate = 0,
         /// <summary>
-        /// 时间内
+        /// 持续时间
         /// </summary>
         Duration = 1,
+        /// <summary>
+        /// 间隔触发
+        /// </summary>
+        Interval = 2,
     }
 
 } 
