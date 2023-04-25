@@ -2,12 +2,38 @@
   {
     "Id": 1,
     "SkillSpellType": 0,
-    "SkillAffectTargetType": 0,
-    "SkillTargetSelectType": 0,
+    "Condition": 1,
     "ColdTime": 0,
     "AttachEffect": [
       1,
       2
+    ]
+  },
+  {
+    "Id": 2,
+    "SkillSpellType": 0,
+    "Condition": 2,
+    "ColdTime": 0,
+    "AttachEffect": [
+      3
+    ]
+  },
+  {
+    "Id": 3,
+    "SkillSpellType": 0,
+    "Condition": 3,
+    "ColdTime": 0,
+    "AttachEffect": [
+      4
+    ]
+  },
+  {
+    "Id": 4,
+    "SkillSpellType": 0,
+    "Condition": 4,
+    "ColdTime": 0,
+    "AttachEffect": [
+      5
     ]
   }
 ]

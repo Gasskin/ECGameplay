@@ -7,29 +7,21 @@
 //------------------------------------------------------------------------------
 
 
-namespace cfg.Skill.Enum
+namespace cfg.Condition.Enum
 { 
     /// <summary>
-    /// 目标选择方式
+    /// 目标类型
     /// </summary>
-    public enum SkillTargetSelectType
+    public enum TargetType
     {
         /// <summary>
-        /// 手动指定
+        /// 友方
         /// </summary>
-        PlayerSelect = 0,
+        Team = 0,
         /// <summary>
-        /// 碰撞检测
+        /// 敌方
         /// </summary>
-        CollisionSelect = 1,
-        /// <summary>
-        /// 条件检测
-        /// </summary>
-        ConditionSelect = 2,
-        /// <summary>
-        /// 自定义
-        /// </summary>
-        Custom = 3,
+        Enemy = 1,
     }
 
 } 

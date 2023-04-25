@@ -7,25 +7,25 @@
 //------------------------------------------------------------------------------
 
 
-namespace cfg.Skill.Enum
+namespace cfg.Condition.Enum
 { 
     /// <summary>
-    /// 目标类型
+    /// 选择区域的范围类型
     /// </summary>
-    public enum SkillAffectTargetType
+    public enum AreaSelectType
     {
         /// <summary>
-        /// 自身
+        /// 无
         /// </summary>
-        Self = 0,
+        None = 0,
         /// <summary>
-        /// 友方
+        /// 矩形
         /// </summary>
-        SelfTeam = 1,
+        Rect = 1,
         /// <summary>
-        /// 敌方
+        /// 圆形
         /// </summary>
-        EnemyTeam = 2,
+        Round = 2,
     }
 
 } 

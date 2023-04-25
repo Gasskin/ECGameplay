@@ -16,6 +16,7 @@ public sealed partial class Tables
 {
     public Skill.SkillTable SkillTable {get; }
     public Effect.EffectTable EffectTable {get; }
+    public Condition.ConditionTable ConditionTable {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -24,10 +25,13 @@ public sealed partial class Tables
         tables.Add("Skill.SkillTable", SkillTable);
         EffectTable = new Effect.EffectTable(loader("effect_effecttable")); 
         tables.Add("Effect.EffectTable", EffectTable);
+        ConditionTable = new Condition.ConditionTable(loader("condition_conditiontable")); 
+        tables.Add("Condition.ConditionTable", ConditionTable);
         PostInit();
 
         SkillTable.Resolve(tables); 
         EffectTable.Resolve(tables); 
+        ConditionTable.Resolve(tables); 
         PostResolve();
     }
 
@@ -35,6 +39,7 @@ public sealed partial class Tables
     {
         SkillTable.TranslateText(translator); 
         EffectTable.TranslateText(translator); 
+        ConditionTable.TranslateText(translator); 
     }
     
     partial void PostInit();

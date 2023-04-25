@@ -7,21 +7,29 @@
 //------------------------------------------------------------------------------
 
 
-namespace cfg.Skill.Enum
+namespace cfg.Condition.Enum
 { 
     /// <summary>
-    /// 技能类型
+    /// 范围类型
     /// </summary>
-    public enum SkillSpellType
+    public enum AreaType
     {
         /// <summary>
-        /// 主动
+        /// 无
         /// </summary>
-        Initiative = 0,
+        None = 0,
         /// <summary>
-        /// 被动
+        /// 矩形
         /// </summary>
-        Passive = 1,
+        Rect = 1,
+        /// <summary>
+        /// 扇形
+        /// </summary>
+        Sector = 2,
+        /// <summary>
+        /// 圆形
+        /// </summary>
+        Round = 3,
     }
 
 } 

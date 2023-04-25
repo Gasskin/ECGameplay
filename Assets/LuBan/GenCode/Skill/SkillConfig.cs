@@ -20,19 +20,17 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
     {
         { if(!_json["Id"].IsNumber) { throw new SerializationException(); }  Id = _json["Id"]; }
         { if(!_json["SkillSpellType"].IsNumber) { throw new SerializationException(); }  SkillSpellType = (Skill.Enum.SkillSpellType)_json["SkillSpellType"].AsInt; }
-        { if(!_json["SkillAffectTargetType"].IsNumber) { throw new SerializationException(); }  SkillAffectTargetType = (Skill.Enum.SkillAffectTargetType)_json["SkillAffectTargetType"].AsInt; }
-        { if(!_json["SkillTargetSelectType"].IsNumber) { throw new SerializationException(); }  SkillTargetSelectType = (Skill.Enum.SkillTargetSelectType)_json["SkillTargetSelectType"].AsInt; }
+        { if(!_json["Condition"].IsNumber) { throw new SerializationException(); }  Condition = _json["Condition"]; }
         { if(!_json["ColdTime"].IsNumber) { throw new SerializationException(); }  ColdTime = _json["ColdTime"]; }
         { var __json0 = _json["AttachEffect"]; if(!__json0.IsArray) { throw new SerializationException(); } AttachEffect = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  AttachEffect.Add(__v0); }   }
         PostInit();
     }
 
-    public SkillConfig(int Id, Skill.Enum.SkillSpellType SkillSpellType, Skill.Enum.SkillAffectTargetType SkillAffectTargetType, Skill.Enum.SkillTargetSelectType SkillTargetSelectType, float ColdTime, System.Collections.Generic.List<int> AttachEffect ) 
+    public SkillConfig(int Id, Skill.Enum.SkillSpellType SkillSpellType, int Condition, float ColdTime, System.Collections.Generic.List<int> AttachEffect ) 
     {
         this.Id = Id;
         this.SkillSpellType = SkillSpellType;
-        this.SkillAffectTargetType = SkillAffectTargetType;
-        this.SkillTargetSelectType = SkillTargetSelectType;
+        this.Condition = Condition;
         this.ColdTime = ColdTime;
         this.AttachEffect = AttachEffect;
         PostInit();
@@ -49,13 +47,10 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
     /// </summary>
     public Skill.Enum.SkillSpellType SkillSpellType { get; private set; }
     /// <summary>
-    /// 技能作用对象
-    /// </summary>
-    public Skill.Enum.SkillAffectTargetType SkillAffectTargetType { get; private set; }
-    /// <summary>
     /// 技能目标检测方式
     /// </summary>
-    public Skill.Enum.SkillTargetSelectType SkillTargetSelectType { get; private set; }
+    public int Condition { get; private set; }
+    public Condition.ConditionConfig Condition_Ref { get; private set; }
     /// <summary>
     /// 冷却时间
     /// </summary>
@@ -71,6 +66,7 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
+        this.Condition_Ref = (_tables["Condition.ConditionTable"] as Condition.ConditionTable).GetOrDefault(Condition);
         { Effect.EffectTable __table = (Effect.EffectTable)_tables["Effect.EffectTable"]; this.AttachEffect_Ref = new System.Collections.Generic.List<Effect.EffectConfig>(); foreach(var __e in AttachEffect) { this.AttachEffect_Ref.Add(__table.GetOrDefault(__e)); } }
         PostResolve();
     }
@@ -84,8 +80,7 @@ public sealed partial class SkillConfig :  Bright.Config.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "SkillSpellType:" + SkillSpellType + ","
-        + "SkillAffectTargetType:" + SkillAffectTargetType + ","
-        + "SkillTargetSelectType:" + SkillTargetSelectType + ","
+        + "Condition:" + Condition + ","
         + "ColdTime:" + ColdTime + ","
         + "AttachEffect:" + Bright.Common.StringUtil.CollectionToString(AttachEffect) + ","
         + "}";

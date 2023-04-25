@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "TargetType": 1,
+    "RuleType": 1,
+    "AreaType": 0,
+    "AreaSelectType": 0,
+    "CustomRule": 0,
+    "AreaInfo": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaOffset": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaSelectInfo": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "Id": 2,
+    "TargetType": 1,
+    "RuleType": 2,
+    "AreaType": 2,
+    "AreaSelectType": 0,
+    "CustomRule": 0,
+    "AreaInfo": {
+      "x": 0.5,
+      "y": 30
+    },
+    "AreaOffset": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaSelectInfo": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "Id": 3,
+    "TargetType": 1,
+    "RuleType": 3,
+    "AreaType": 1,
+    "AreaSelectType": 2,
+    "CustomRule": 0,
+    "AreaInfo": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaOffset": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaSelectInfo": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "Id": 4,
+    "TargetType": 1,
+    "RuleType": 4,
+    "AreaType": 0,
+    "AreaSelectType": 0,
+    "CustomRule": 1001,
+    "AreaInfo": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaOffset": {
+      "x": 0,
+      "y": 0
+    },
+    "AreaSelectInfo": {
+      "x": 0,
+      "y": 0
+    }
+  }
+]
