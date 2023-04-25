@@ -19,12 +19,12 @@ namespace ECGameplay
             return effect;
         }
 
-        public void RemoveEffect(int id)
+        public void RemoveEffect(EffectAbility effect)
         {
+            var id = effect.EffectConfig.Id;
             if (Id2Effects.TryGetValue(id,out var list))
             {
-                var effect = list[0];
-                list.RemoveAt(0);
+                list.Remove(effect);
                 Entity.Destroy(effect);
             }
         }

@@ -49,7 +49,7 @@ namespace ECGameplay
         
         public void EndAbility()
         {
-            OwnerEntity.RemoveEffect(EffectConfig.Id);
+            OwnerEntity.RemoveEffect(this);
         }
 
         public void Reset()
