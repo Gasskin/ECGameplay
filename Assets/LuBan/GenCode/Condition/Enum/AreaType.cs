@@ -10,7 +10,7 @@
 namespace cfg.Condition.Enum
 { 
     /// <summary>
-    /// 范围类型
+    /// 选择区域的范围类型
     /// </summary>
     public enum AreaType
     {
@@ -23,13 +23,13 @@ namespace cfg.Condition.Enum
         /// </summary>
         Rect = 1,
         /// <summary>
-        /// 扇形
-        /// </summary>
-        Sector = 2,
-        /// <summary>
         /// 圆形
         /// </summary>
-        Round = 3,
+        Round = 2,
+        /// <summary>
+        /// 扇形
+        /// </summary>
+        Sector = 3,
     }
 
 } 

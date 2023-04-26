@@ -27,13 +27,9 @@ namespace cfg.Condition.Enum
         /// </summary>
         Area = 2,
         /// <summary>
-        /// 范围选择
-        /// </summary>
-        AreaSelect = 3,
-        /// <summary>
         /// 自定义
         /// </summary>
-        Custom = 4,
+        Custom = 3,
     }
 
 } 

@@ -22,25 +22,19 @@ public sealed partial class ConditionConfig :  Bright.Config.BeanBase
         { if(!_json["TargetType"].IsNumber) { throw new SerializationException(); }  TargetType = (Condition.Enum.TargetType)_json["TargetType"].AsInt; }
         { if(!_json["RuleType"].IsNumber) { throw new SerializationException(); }  RuleType = (Condition.Enum.RuleType)_json["RuleType"].AsInt; }
         { if(!_json["AreaType"].IsNumber) { throw new SerializationException(); }  AreaType = (Condition.Enum.AreaType)_json["AreaType"].AsInt; }
-        { if(!_json["AreaSelectType"].IsNumber) { throw new SerializationException(); }  AreaSelectType = (Condition.Enum.AreaSelectType)_json["AreaSelectType"].AsInt; }
         { if(!_json["CustomRule"].IsNumber) { throw new SerializationException(); }  CustomRule = _json["CustomRule"]; }
         { var _json2 = _json["AreaInfo"]; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } AreaInfo = new UnityEngine.Vector2(__x, __y); }
-        { var _json2 = _json["AreaOffset"]; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } AreaOffset = new UnityEngine.Vector2(__x, __y); }
-        { var _json2 = _json["AreaSelectInfo"]; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } AreaSelectInfo = new UnityEngine.Vector2(__x, __y); }
         PostInit();
     }
 
-    public ConditionConfig(int Id, Condition.Enum.TargetType TargetType, Condition.Enum.RuleType RuleType, Condition.Enum.AreaType AreaType, Condition.Enum.AreaSelectType AreaSelectType, int CustomRule, UnityEngine.Vector2 AreaInfo, UnityEngine.Vector2 AreaOffset, UnityEngine.Vector2 AreaSelectInfo ) 
+    public ConditionConfig(int Id, Condition.Enum.TargetType TargetType, Condition.Enum.RuleType RuleType, Condition.Enum.AreaType AreaType, int CustomRule, UnityEngine.Vector2 AreaInfo ) 
     {
         this.Id = Id;
         this.TargetType = TargetType;
         this.RuleType = RuleType;
         this.AreaType = AreaType;
-        this.AreaSelectType = AreaSelectType;
         this.CustomRule = CustomRule;
         this.AreaInfo = AreaInfo;
-        this.AreaOffset = AreaOffset;
-        this.AreaSelectInfo = AreaSelectInfo;
         PostInit();
     }
 
@@ -63,10 +57,6 @@ public sealed partial class ConditionConfig :  Bright.Config.BeanBase
     /// </summary>
     public Condition.Enum.AreaType AreaType { get; private set; }
     /// <summary>
-    /// 范围选择类型
-    /// </summary>
-    public Condition.Enum.AreaSelectType AreaSelectType { get; private set; }
-    /// <summary>
     /// 自定义规则ID
     /// </summary>
     public int CustomRule { get; private set; }
@@ -74,14 +64,6 @@ public sealed partial class ConditionConfig :  Bright.Config.BeanBase
     /// 范围信息
     /// </summary>
     public UnityEngine.Vector2 AreaInfo { get; private set; }
-    /// <summary>
-    /// 范围偏移
-    /// </summary>
-    public UnityEngine.Vector2 AreaOffset { get; private set; }
-    /// <summary>
-    /// 范围选择信息
-    /// </summary>
-    public UnityEngine.Vector2 AreaSelectInfo { get; private set; }
 
     public const int __ID__ = -186046166;
     public override int GetTypeId() => __ID__;
@@ -102,11 +84,8 @@ public sealed partial class ConditionConfig :  Bright.Config.BeanBase
         + "TargetType:" + TargetType + ","
         + "RuleType:" + RuleType + ","
         + "AreaType:" + AreaType + ","
-        + "AreaSelectType:" + AreaSelectType + ","
         + "CustomRule:" + CustomRule + ","
         + "AreaInfo:" + AreaInfo + ","
-        + "AreaOffset:" + AreaOffset + ","
-        + "AreaSelectInfo:" + AreaSelectInfo + ","
         + "}";
     }
     
