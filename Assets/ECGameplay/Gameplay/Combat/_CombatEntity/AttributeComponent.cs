@@ -25,7 +25,7 @@
 
         public override void Awake()
         {
-            MoveSpeed.SetBaseValue(1);
+            MoveSpeed.SetBaseValue(10);
             HealthPoint.SetBaseValue(99_999);
             HealthPointMax.SetBaseValue(99_999);
             Attack.SetBaseValue(1000);

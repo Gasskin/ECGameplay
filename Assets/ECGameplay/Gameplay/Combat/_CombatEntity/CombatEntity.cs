@@ -11,15 +11,22 @@ namespace ECGameplay
         public BlockAction BlockAction { get; private set; }
         // 伤害行为
         public DamageAction DamageAction { get; private set; }
-
+        // 释放技能行为
+        public SkillSpellAction SkillSpellAction { get; private set; }
+        // 添加效果行为
         public AddEffectAction AddEffectAction { get; private set; }
         
         
         // 普攻能力
         public AttackAbility AttackAbility { get; private set; }
-        
-        
 
+        // 执行中的技能
+        public SkillAbility SkillAbility { get; private set; }
+        
+        
+        public Vector3 Position { get; set; }
+        public Quaternion Rotation { get; set; }
+        
         public override void Awake()
         {
             AddComponent<AttributeComponent>();
@@ -30,8 +37,8 @@ namespace ECGameplay
             BlockAction = AttachAction<BlockAction>();
             DamageAction = AttachAction<DamageAction>();
             AddEffectAction = AttachAction<AddEffectAction>();
-            // EffectAssignAction = AttachAction<EffectAssignAction>();
-
+            SkillSpellAction = AttachAction<SkillSpellAction>();
+            
             AttackAbility = AttachAbility<AttackAbility>(1);
         }
 
